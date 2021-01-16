@@ -1,0 +1,8 @@
+*.txt
+*.json
+ABCPastQuestions/*/A
+ABCPastQuestions/*/B
+ABCPastQuestions/*/C
+ABCPastQuestions/*/D
+ABCPastQuestions/*/E
+ABCPastQuestions/*/F
