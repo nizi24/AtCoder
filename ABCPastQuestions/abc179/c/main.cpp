@@ -25,13 +25,7 @@ inline bool chmax(T &a, T b) {
 void solve(long long N){
 	i64 res = 0;
 	for (int i = 1; i < N; i++) {
-		for (int j = 1; j < N; j++) {
-			if (i * j < N) {
-				res++;
-			} else {
-				break;
-			}
-		}
+		res += (N-1) / i; 
 	}
 	cout << res << endl;
 }
