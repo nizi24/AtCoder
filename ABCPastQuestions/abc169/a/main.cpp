@@ -22,26 +22,16 @@ inline bool chmax(T &a, T b) {
 	return false;
 }
 
-const string YES = "Yes";
-const string NO = "No";
 
-void solve(long long X, long long Y){
-	string ans = NO;
-	REP (i, X) {
-		if (((X - i) * 4 == Y) || ((X - i) * 2 == Y)) {
-			ans = YES;
-			break;
-		}
-		Y -= 4;
-	}
-	cout << ans << endl;
+void solve(long long A, long long B){
+	cout << A * B << endl;
 }
 
 int main(){
-    long long X;
-    scanf("%lld",&X);
-    long long Y;
-    scanf("%lld",&Y);
-    solve(X, Y);
+    long long A;
+    scanf("%lld",&A);
+    long long B;
+    scanf("%lld",&B);
+    solve(A, B);
     return 0;
 }
