@@ -23,12 +23,8 @@ inline bool chmax(T &a, T b) {
 
 
 void solve(long long N, long long X, long long T){
-	int takoyaki = 0;
-	int ans = 0;
-	while (N > takoyaki) {
-		ans += T;
-		takoyaki += X;
-	}
+	int times = (N + X - 1) / X;
+	int ans = times * T;
 	cout << ans << endl;
 }
 
