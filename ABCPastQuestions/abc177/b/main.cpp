@@ -24,17 +24,17 @@ inline bool chmax(T &a, T b) {
 
 
 void solve(std::string S, std::string T){
-	int max = 0;
+	int min = T.size();
 	REP (i, S.size() - T.size() + 1) {
-		int relation = 0;
+		int diff = 0;
 		REP(j, T.size()) {
-			if (S[i + j] == T[j]) {
-				relation++;
+			if (S[i + j] != T[j]) {
+				diff++;
 			}
 		}
-		chmax(max, relation);
+		chmin(min, diff);
 	}
-	cout << T.size() - max << endl;
+	cout << min << endl;
 }
 
 int main(){
