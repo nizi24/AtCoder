@@ -26,10 +26,7 @@ const string NO = "No";
 
 void solve(std::string N){
 	int sum = 0;
-	REP (i, N.size()) {
-		string n{N[i]};
-		sum += stoi(n);
-	}
+	REP (i, N.size()) sum += N[i] - '0';
 	cout << (sum % 9 == 0 ? "Yes" : "No") << endl;
 }
 
