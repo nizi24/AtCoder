@@ -25,11 +25,7 @@ inline bool chmax(T &a, T b) {
 
 void solve(std::string S, std::string T){
 	int ans = 0;
-	REP (i, S.size()) {
-		if (S[i] != T[i]) {
-			ans++;
-		}
-	}
+	REP (i, S.size()) if (S[i] != T[i]) ans++;
 	cout << ans << endl;
 }
 
