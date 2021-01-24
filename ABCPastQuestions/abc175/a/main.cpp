@@ -25,22 +25,19 @@ inline bool chmax(T &a, T b) {
 
 void solve(std::string S){
 	int ans = 0;
-	if (S.at(0) == 'R') {
+	bool a = S[0] == 'R';
+	bool b = S[1] == 'R';
+	bool c = S[2] == 'R';
+	if (a) {
 		ans++;
-		if (S.at(1) == 'R') {
+		if (b){
 			ans++;
-			if (S.at(2) == 'R') {
-				ans++;
-			}
+			if (c) ans++;
 		}
-	} else if (S.at(1) == 'R') {
+	} else if (b) {
 		ans++;
-		if (S.at(2) == 'R') {
-			ans++;
-		}
-	} else if (S.at(2) == 'R') {
-		ans++;
-	}
+		if (c) ans++;
+	} else if (c) ans++;
 	cout << ans << endl;
 }
 
