@@ -25,10 +25,12 @@ inline bool chmax(T &a, T b) {
 
 void solve(long long A, long long B, long long C, long long K){
     int ans = 0;
-    REP (i, A) {
-        if (K <= 0) break;
-        ans++;
-        K--;
+    if (K <= A) {
+        ans = K;
+        K = 0;
+    } else {
+        ans += A;
+        K -= A;
     }
     if (K > 0 && K - B > 0) ans -= K - B;
     cout << ans << endl;
