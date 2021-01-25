@@ -23,19 +23,13 @@ inline bool chmax(T &a, T b) {
 }
 
 
-void solve(long long A, long long B, long long C, long long K){
-
+void solve(std::string S){
+	cout << (S == "ABC" ? "ARC" : "ABC") << endl;
 }
 
 int main(){
-    long long A;
-    scanf("%lld",&A);
-    long long B;
-    scanf("%lld",&B);
-    long long C;
-    scanf("%lld",&C);
-    long long K;
-    scanf("%lld",&K);
-    solve(A, B, C, K);
+    std::string S;
+    std::cin >> S;
+    solve(S);
     return 0;
 }

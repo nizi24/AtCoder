@@ -26,8 +26,7 @@ const string YES = "Yes";
 const string NO = "No";
 
 void solve(std::string S, std::string T){
-	if (S == T.substr(0, T.size() - 1)) cout << YES << endl;
-	else cout << NO << endl;
+
 }
 
 int main(){

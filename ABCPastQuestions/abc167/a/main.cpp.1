@@ -22,20 +22,19 @@ inline bool chmax(T &a, T b) {
 	return false;
 }
 
+const string YES = "Yes";
+const string NO = "No";
 
-void solve(long long A, long long B, long long C, long long K){
-
+void solve(std::string S, std::string T){
+	if (S == T.substr(0, T.size() - 1)) cout << YES << endl;
+	else cout << NO << endl;
 }
 
 int main(){
-    long long A;
-    scanf("%lld",&A);
-    long long B;
-    scanf("%lld",&B);
-    long long C;
-    scanf("%lld",&C);
-    long long K;
-    scanf("%lld",&K);
-    solve(A, B, C, K);
+    std::string S;
+    std::cin >> S;
+    std::string T;
+    std::cin >> T;
+    solve(S, T);
     return 0;
 }
