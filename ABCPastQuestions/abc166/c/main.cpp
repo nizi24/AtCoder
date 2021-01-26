@@ -34,7 +34,7 @@ void solve(long long N, long long M, std::vector<long long> H, std::vector<long 
         }
     }
     int ans = 0;
-    REP (i, N) if (good[i]) ans++;
+    REP (i, N) ans += good[i];
     cout << ans << endl;
 }
 
