@@ -21,11 +21,11 @@ inline bool chmax(T &a, T b) {
 	}
 	return false;
 }
-
+template<class T>
+inline T sum(T n){return n*(n+1)/2;}
 
 void solve(long long N){
-	i64 ans = 0;
-	REP (i, N) if ((i + 1) % 5 != 0 && (i + 1) % 3 != 0) ans += i + 1;
+	i64 ans = sum(N) - sum(N/5) * 5 - sum(N/3) * 3 + sum(N/15) * 15;
 	cout << ans << endl;
 }
 

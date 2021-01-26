@@ -21,6 +21,8 @@ inline bool chmax(T &a, T b) {
 	}
 	return false;
 }
+template<class T>
+inline T sum(T n){return n*(n+1)/2;}
 
 {% if mod %}
 const long long MOD = {{ mod }};
