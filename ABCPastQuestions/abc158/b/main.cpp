@@ -27,13 +27,8 @@ inline T sum(T n){return n*(n+1)/2;}
 
 void solve(long long N, long long A, long long B){
 	long long ans = 0;
-	if (N <= A) ans = N;
-	else if (N <= A + B) ans = A;
-	else {
-		ans = N / (A + B) * A;
-		if (N % (A + B) >= A) ans += A;
-		else ans += N % (A + B);
-	}
+	ans = N / (A + B) * A;
+	ans += min(N % (A + B), A);
 	cout << ans << endl;
 }
 
