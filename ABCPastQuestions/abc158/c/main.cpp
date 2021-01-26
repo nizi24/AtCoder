@@ -24,7 +24,6 @@ inline bool chmax(T &a, T b) {
 template<class T>
 inline T sum(T n){return n*(n+1)/2;}
 
-
 void solve(long long A, long long B){
 	int left = 0;
 	int right = INF;
