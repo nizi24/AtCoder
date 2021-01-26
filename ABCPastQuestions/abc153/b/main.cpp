@@ -28,7 +28,6 @@ const string YES = "Yes";
 const string NO = "No";
 
 void solve(long long H, long long N, std::vector<long long> A){
-    ALL(sort, A);
     for (int i = A.size()-1; i >= 0; i--) H -= A[i];
     cout << (H <= 0 ? YES : NO) << endl;
 }
