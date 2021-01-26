@@ -1,6 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-using long long = ll;
 using i64 = int64_t;
 #define MOD 1000000007
 #define INF INT32_MAX / 2
@@ -25,25 +24,17 @@ inline bool chmax(T &a, T b) {
 template<class T>
 inline T sum(T n){return n*(n+1)/2;}
 
-const string YES = "Yes";
-const string NO = "No";
 
-void solve(std::string S) {
-	string rev(S);
-	ALL(reverse, rev);
-	string S2 = S.substr(0, (S.size()-1)/2);
-	string rev2(S2);
-	ALL(reverse, S2);
-	string S3 = S.substr((S.size()+3)/2-1);
-	string rev3(S3);
-	ALL(reverse, S3);
-	if (S == rev && rev2 == S2 && rev3 == S3) cout << YES << endl;
-	else cout << NO << endl;
+void solve(long long N, long long M){
+	int ans = N * (N - 1) / 2 + M * (M - 1) / 2;
+	cout << ans << endl;
 }
 
 int main(){
-    std::string S;
-    std::cin >> S;
-    solve(S);
+    long long N;
+    scanf("%lld",&N);
+    long long M;
+    scanf("%lld",&M);
+    solve(N, M);
     return 0;
 }
