@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 using i64 = int64_t;
+using ll = long long;
 #define MOD 1000000007
 #define INF INT32_MAX / 2
 #define REP(i, n) for (int i = 0; i < n; i++)
@@ -24,7 +25,7 @@ inline bool chmax(T &a, T b) {
 template<class T>
 inline T sum(T n){return n*(n+1)/2;}
 template<class T>
-inline void prime_fac(map<T, T> &mp, long long A) {
+inline void rp(map<T, T> &mp, long long A) {
 	for (int i = 2; i * i <= A; i++) {
 		while (A % i == 0) {
 			mp[i]++;
@@ -34,28 +35,29 @@ inline void prime_fac(map<T, T> &mp, long long A) {
 	if (A != 1) mp[A] = 1;
 }
 
-{% if mod %}
-const long long MOD = {{ mod }};
-{% endif %}
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
-
-{% if prediction_success %}
-void solve({{ formal_arguments }}){
-
+void solve(long long A, long long B){
+	map<int, int> mpA;
+	map<int, int> mpB;
+	rp(mpA, A);
+	rp(mpB, B);
+	long long ans = 1;
+	for (int i = 2; i <= max(A, B); i++) {
+		int max = 0;
+		chmax(max, mpA[i]);
+		chmax(max, mpB[i]);
+		while (max > 0) {
+			ans *= i;
+			max--;
+		}
+	}
+	cout << ans << endl;
 }
-{% endif %}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    long long A;
+    scanf("%lld",&A);
+    long long B;
+    scanf("%lld",&B);
+    solve(A, B);
     return 0;
 }
