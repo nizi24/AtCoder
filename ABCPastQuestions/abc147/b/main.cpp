@@ -15,10 +15,11 @@ bool is_prime(ll N){if(N<=1)return false;for(int i=2;i*i<=N;i++){if(N%i==0) retu
 
 void solve(std::string S){
     int ans = 0;
-    string a = S.substr(0, S.size()/2);
-    string b = S.substr((S.size() + 1) /2);
-    ALL(reverse, b);
-    REP (i, a.size()) if (a[i] != b[i]) ans++;
+    // string a = S.substr(0, S.size()/2);
+    // string b = S.substr((S.size() + 1) /2);
+    // ALL(reverse, b);
+    // REP (i, a.size()) if (a[i] != b[i]) ans++;
+    REP (i, S.size()/2) if (S[i] != S[S.size()-1-i]) ans++;
     cout << ans << endl;
 }
 
