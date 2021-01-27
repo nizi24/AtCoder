@@ -1,6 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
 using i64 = int64_t;
+using ll = long long;
 #define MOD 1000000007
 #define INF INT32_MAX / 2
 #define REP(i, n) for (int i = 0; i < n; i++)
