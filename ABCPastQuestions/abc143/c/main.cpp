@@ -15,9 +15,8 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 
 
 void solve(long long N, std::string S){
-    int ans = 0;
-    REP (i, N) if (S[i] != S[i - 1]) ans++;
-    else if (i == 0) ans++;
+    int ans = 1;
+    REP (i, N-1) if (S[i] != S[i + 1]) ans++;
     cout << ans << endl;
 }
 
