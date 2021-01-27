@@ -16,14 +16,7 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 
 
 void solve(long long A, long long B){
-    int ans = 0;
-    int tap = 1;
-    while (tap < B) {
-        tap -= 1;
-        tap += A;
-        ans++;
-    }
-    c(ans)
+    c(myceil(B - 1, A - 1))
 }
 
 int main(){
