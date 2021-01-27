@@ -19,16 +19,14 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 void solve(long long N, std::vector<long long> A, std::vector<long long> B){
     ll ans = 0;
     REP (i, N) {
-        ll a = A[i];
-        ll b = B[i];
-        A[i] = max(0LL, A[i] - B[i]);
-        B[i] = max(0LL, B[i] - a);
-        if (B[i] > 0) {
-            ll aa = A[i + 1];
-            A[i + 1] = max(0LL, A[i + 1] - B[i]);
-            B[i] = max(0LL, B[i] - aa);
-        }
-        ans += b - B[i];
+        ll c = min(A[i], B[i]);
+        A[i] -= c;
+        B[i] -= c;
+        ans += c;
+        c = min(A[i+1], B[i]);
+        A[i+1] -= c;
+        B[i] -= c;
+        ans += c;
     }
     c(ans)
 }
