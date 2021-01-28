@@ -19,17 +19,9 @@ const string YES = "Yes";
 const string NO = "No";
 
 void solve(std::string S){
-    char c1 = 0;
-    char c2 = 0;
-    REP (i, S.size()) {
-        if (!c1) c1 = S[i];
-        else if (!c2 && c1 != S[i]) c2 = S[i];
-        else if (c1 != S[i] && c2 != S[i]) {
-            c(NO)
-            return;
-        }
-    }
-    if (c1 && c2) c(YES)
+    set<char> s;
+    REP (i, S.size()) s.insert(S[i]);
+    if (s.size() == 2) c(YES)
     else c(NO)
 }
 
