@@ -18,13 +18,10 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 
 
 void solve(long long A, long long B, long long C, long long D){
-    ll c_multiple = (B - A + 1) / C;
-    c_multiple += ((A - max(A % C, 0LL) + C) + (c_multiple * C) <= B);
-    ll d_multiple = (B - A + 1) / D;
-    d_multiple += ((A - max(A % D, 0LL) + D) + (d_multiple * D) <= B);
-    ll cd_multiple = (B - A + 1) / lcm(C, D);
-    cd_multiple += ((A - max(A % lcm(C, D), 0LL) + lcm(C, D)) + (cd_multiple * lcm(C, D)) <= B);
-    c(B - A + 1 - c_multiple - d_multiple + cd_multiple)
+    ll c_multiple = (B / C) - ((A - 1) / C);
+    ll d_multiple = (B / D) - ((A - 1) / D);
+    ll cd_multiple = (B / lcm(C, D)) - ((A - 1) / lcm(C, D));
+    c(B - A + 1 - c_multiple - d_multiple + cd_multiple);
 }
 
 int main(){
