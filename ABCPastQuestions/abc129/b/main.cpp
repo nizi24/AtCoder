@@ -18,12 +18,12 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 
 void solve(long long N, std::vector<long long> W){
     int min = INF;
-    for (int i = 1; i < N-1; i++) {
-        int left = 0;
-        int right = 0;
-        for (int j = 0; j < i + 1; j++) left += W[j];
-        for (int j = i + 1; j < N; j++) right += W[j];
-        chmin(min, abs(left - right));
+    int sum = 0;
+    int current_sum = 0;
+    REP (i, N) sum += W[i];
+    REP (i, N) {
+        current_sum += W[i];
+        chmin(min, abs((sum - current_sum) - current_sum));
     }
     c(min)
 }
