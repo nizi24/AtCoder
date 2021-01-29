@@ -29,12 +29,8 @@ void solve(long long N) {
 	while (N > 0) {
 		ll mod = N % 26;
 		if (mod != 0) ans += 'a' - 1 + mod;
-		else {
-			ans += 'z';
-		}
-		if (mod == 0) {
-			N -= 1;
-		}
+		else ans += 'z';
+		if (mod == 0) N -= 1;
 		N /= 26;
 	}
 	ALL(reverse, ans);
