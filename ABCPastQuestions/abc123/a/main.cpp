@@ -20,28 +20,27 @@ map<ll,ll> prime_fac(ll A) {map<ll,ll>mp;for(int i=2;i*i<=A;i++){while(A%i== 0){
 bool is_prime(ll N){if(N<=1)return false;for(int i=2;i*i<=N;i++){if(N%i==0) return false;}return true;}
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 
-{% if mod %}
-const long long MOD = {{ mod }};
-{% endif %}
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
 
-{% if prediction_success %}
-void solve({{ formal_arguments }}){
-
+void solve(long long a, long long b, long long c, long long d, long long e, long long k){
+    ll mn = min(a, min(b, min(c, min(d, e))));
+    ll mx = max(a, max(b, max(c, max(d, e))));
+    if (mx - mn > k) c(":(")
+    else c("Yay!")
 }
-{% endif %}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    long long a;
+    scanf("%lld",&a);
+    long long b;
+    scanf("%lld",&b);
+    long long c;
+    scanf("%lld",&c);
+    long long d;
+    scanf("%lld",&d);
+    long long e;
+    scanf("%lld",&e);
+    long long k;
+    scanf("%lld",&k);
+    solve(a, b, c, d, e, k);
     return 0;
 }
