@@ -8,6 +8,7 @@ typedef pair<int, int> pint;
 #define MOD 1000000007
 #define INF INT32_MAX / 2
 #define INF64 INT64_MAX / 2
+#define EPS 0.001
 #define REP(i, n) for (int i = 0; i < n; i++)
 #define all(x) (x).begin(),(x).end()
 #define ALL(f,c,...) (([&](decltype((c)) cccc) { return (f)(std::begin(cccc), std::end(cccc), ## __VA_ARGS__); })(c))
