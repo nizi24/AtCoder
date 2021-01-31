@@ -47,8 +47,10 @@ void solve(long long N, long long M, std::vector<long long> s, std::vector<long 
             }
         }
         if (!add) {
-            if (i == 0 && N == 1) ans += "0";
-            else if (i == 0) ans += "1";
+            if (i == 0) {
+                if (N == 1) ans += "0";
+                else ans += "1";
+            }
             else ans += "0";
         }
     }
