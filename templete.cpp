@@ -20,6 +20,7 @@ template<class T>inline T sum(T n){return n*(n+1)/2;}
 map<ll,ll> prime_fac(ll A) {map<ll,ll>mp;for(int i=2;i*i<=A;i++){while(A%i== 0){mp[i]++;A/=i;}}if(A!=1){mp[A]=1;}return mp;}
 bool is_prime(ll N){if(N<=1)return false;for(int i=2;i*i<=N;i++){if(N%i==0) return false;}return true;}
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
+bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
 {% if mod %}
 const long long MOD = {{ mod }};
