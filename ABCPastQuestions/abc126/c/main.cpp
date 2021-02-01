@@ -5,6 +5,7 @@ using ll = long long;
 #define MOD 1000000007
 #define INF INT32_MAX / 2
 #define REP(i, n) for (int i = 0; i < n; i++)
+#define all(x) (x).begin(),(x).end()
 #define ALL(f,c,...) (([&](decltype((c)) cccc) { return (f)(std::begin(cccc), std::end(cccc), ## __VA_ARGS__); })(c))
 #define c(n) cout<<n<<endl;
 #define cf(n) cout<<fixed<<setprecision(15)<<n<<endl;
@@ -16,24 +17,25 @@ bool is_prime(ll N){if(N<=1)return false;for(int i=2;i*i<=N;i++){if(N%i==0) retu
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 
 
-void solve(long long N, std::vector<std::string> s){
-    ll ans = 0;
-    unordered_map<string, int> mp;
-    REP (i, N) {
-        ALL(sort, s[i]);
-        ans += mp[s[i]];
-        mp[s[i]]++;
-    }   
-    cout << ans << endl;
+void solve(long long N, long long K){
+    double res = 0;
+    for (int i = 1; i <= N; i++) {
+        double count = 0;
+        ll tmp = i;
+        while (tmp < K) {
+            tmp *= 2;
+            count++;
+        }
+        res += ((double)1 / N) * pow(0.5, count);
+    }
+    cf(res)
 }
 
 int main(){
     long long N;
     scanf("%lld",&N);
-    std::vector<std::string> s(N);
-    for(int i = 0 ; i < N ; i++){
-        std::cin >> s[i];
-    }
-    solve(N, std::move(s));
+    long long K;
+    scanf("%lld",&K);
+    solve(N, K);
     return 0;
 }
