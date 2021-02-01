@@ -22,28 +22,32 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
-{% if mod %}
-const long long MOD = {{ mod }};
-{% endif %}
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
 
-{% if prediction_success %}
-void solve({{ formal_arguments }}){
-
+void solve(long long N){
+	ll ans = 0;
+	for(ll i = 2; i * i <= N; i++){
+		int count = 0;
+		int terms = 1;
+		while(N % i == 0){
+			count++;
+			if (count == terms) {
+				ans++;
+				terms++;
+				count = 0;
+			}
+			N /= i;
+		}
+		// cout << i << endl;
+	}
+	if(N != 1) {
+		ans++;
+	}
+	c(ans)
 }
-{% endif %}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    long long N;
+    scanf("%lld",&N);
+    solve(N);
     return 0;
 }
