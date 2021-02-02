@@ -1,6 +1,10 @@
 #include <bits/stdc++.h>
 using namespace std;
 using i64 = int64_t;
+#define MOD 1000000007
+#include <bits/stdc++.h>
+using namespace std;
+using i64 = int64_t;
 using ll = long long;
 using lint = long long;
 typedef vector<long long> vint;
@@ -22,28 +26,24 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
-{% if mod %}
-const long long MOD = {{ mod }};
-{% endif %}
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
 
-{% if prediction_success %}
-void solve({{ formal_arguments }}){
-
-}
-{% endif %}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    ll N;
+	cin >> N;
+	vint A(N);
+	REP (i, N) cin >> A[i];
+	ll zahyo = 0;
+	ll max = 0;
+	ll sum = 0;
+	ll sum_max = 0;
+	REP (i, N) {
+		sum += A[i];
+		chmax(sum_max, sum);
+		ll positive = zahyo + sum_max;
+		chmax(max, positive);
+		zahyo += sum;
+	}
+	c(max)
     return 0;
 }
