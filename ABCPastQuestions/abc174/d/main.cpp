@@ -30,12 +30,8 @@ int main(){
 	string S;
 	cin >> S;
 	ll red = 0;
-	ll white = 0;
+	REP (i, N) if (S[i] == 'R') red++;
 	ll ans = 0;
-	REP (i, N) {
-		if (S[i] == 'R') red++;
-		else white++;
-	}
 	ll min = INF;
 	REP (i, N) {
 		if (red == i) {
