@@ -37,13 +37,8 @@ int main(){
 			ll F;
 			char C;
 			cin >> F >> C;
-			if (F == 1) {
-				if (reverse_count % 2 == 0) S = C + S;
-				else S += C;
-			} else {
-				if (reverse_count % 2 == 0) S += C;
-				else S = C + S;
-			}
+			if ((reverse_count + F) % 2 == 0) S += C;
+			else S = C + S;
 		}
 	}
 	if (reverse_count % 2 == 0) c(S)
