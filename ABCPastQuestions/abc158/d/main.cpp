@@ -23,22 +23,33 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
 
-void solve(long long H, long long W, long long h, long long w){
-    ll white = H * W;
-    REP (i, h) white -= W;
-    REP (i, w) white -= H - h;
-    c(white)
-}
 
 int main(){
-    long long H;
-    scanf("%lld",&H);
-    long long W;
-    scanf("%lld",&W);
-    long long h;
-    scanf("%lld",&h);
-    long long w;
-    scanf("%lld",&w);
-    solve(H, W, h, w);
+    string S;
+	ll Q;
+	cin >> S >> Q;
+	ll reverse_count = 0;
+	REP (i, Q) {
+		ll T;
+		cin >> T;
+		if (T == 1) reverse_count++;
+		else {
+			ll F;
+			char C;
+			cin >> F >> C;
+			if (F == 1) {
+				if (reverse_count % 2 == 0) S = C + S;
+				else S += C;
+			} else {
+				if (reverse_count % 2 == 0) S += C;
+				else S = C + S;
+			}
+		}
+	}
+	if (reverse_count % 2 == 0) c(S)
+	else {
+		ALL(reverse, S);
+		c(S)
+	}
     return 0;
 }
