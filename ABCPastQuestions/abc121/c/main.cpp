@@ -4,7 +4,7 @@ using i64 = int64_t;
 using ll = long long;
 using lint = long long;
 typedef vector<long long> vint;
-typedef pair<long long, long long> pint;
+typedef pair<int, int> pint;
 #define MOD 1000000007
 #define INF INT32_MAX / 2
 #define INF64 INT64_MAX / 2
@@ -22,28 +22,38 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
-{% if mod %}
-const long long MOD = {{ mod }};
-{% endif %}
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
 
-{% if prediction_success %}
-void solve({{ formal_arguments }}){
-
+void solve(long long N, long long M, std::vector<long long> A, std::vector<long long> B){
+    vector<pair<long long, long long>> vec(N);
+    REP (i, N) {
+        vec[i].first = A[i];
+        vec[i].second = B[i];
+    }
+    ALL(sort, vec);
+    ll ans = 0;
+    ll m = M;
+    REP (i, m) {
+        while (vec[i].second > 0 && M > 0) {
+            ans += vec[i].first;
+            vec[i].second--;
+            M--;
+        }
+        if (M == 0) break;
+    }
+    c(ans)
 }
-{% endif %}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    long long N;
+    scanf("%lld",&N);
+    long long M;
+    scanf("%lld",&M);
+    std::vector<long long> A(N);
+    std::vector<long long> B(N);
+    for(int i = 0 ; i < N ; i++){
+        scanf("%lld",&A[i]);
+        scanf("%lld",&B[i]);
+    }
+    solve(N, M, std::move(A), std::move(B));
     return 0;
 }
