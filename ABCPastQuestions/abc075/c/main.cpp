@@ -66,17 +66,7 @@ void solve(long long N, long long M, std::vector<long long> a, std::vector<long 
                 uf.unite(a[j], b[j]);
             }
         }
-        REP (j, N) {
-            bool brk = 0;
-            REP (k, N) {
-                if (!uf.issame(j+1, k+1)) {
-                    ans++;
-                    brk = 1;
-                    break;
-                }
-            }
-            if (brk) break;
-        }
+        if (uf.size(a[i]) != N) ans++;
     }
     c(ans)
 }
