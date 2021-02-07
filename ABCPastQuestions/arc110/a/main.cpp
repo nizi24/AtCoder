@@ -22,16 +22,19 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
+const long long MOD = 7;
 
-void solve(long long N, long long M){
-    c((N-2) * (M-2))
+void solve(long long N){
+    ll LCM = 2;
+    REP (i, N-2) {
+        LCM = lcm(LCM, i+3);
+    }
+    c(LCM+1)
 }
 
 int main(){
     long long N;
     scanf("%lld",&N);
-    long long M;
-    scanf("%lld",&M);
-    solve(N, M);
+    solve(N);
     return 0;
 }
