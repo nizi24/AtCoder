@@ -23,19 +23,19 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
 
-void solve(long long a, long long b, long long x, long long y){
-    c(min(x + abs(b - a) * y,  abs(b - a) * x * 2 + x))
+void solve(long long n){
+    ll count = 0;
+    ll N = n+1;
+    while (N > count) {
+        count++;
+        N -= count;
+    }
+    c(n - count + 1)
 }
 
 int main(){
-    long long a;
-    scanf("%lld",&a);
-    long long b;
-    scanf("%lld",&b);
-    long long x;
-    scanf("%lld",&x);
-    long long y;
-    scanf("%lld",&y);
-    solve(a, b, x, y);
+    long long n;
+    scanf("%lld",&n);
+    solve(n);
     return 0;
 }
