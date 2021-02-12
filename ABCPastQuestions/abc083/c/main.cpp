@@ -26,7 +26,7 @@ bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!
 void solve(long long X, long long Y){
     ll ans = 0;
     ll x = X;
-    while (!is_product_overflow(x, 2)) {
+    while (true) {
         if (x > Y) {
             break;
         }
