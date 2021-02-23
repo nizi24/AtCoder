@@ -24,28 +24,23 @@ bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!
 
 
 void solve(std::string S){
-    vector<pair<ll, char>> vec;
-    ll s_size = S.size();
-    REP (i, s_size-2) {
-        if (S[i] == S[i+1] && S[i] != S[i+2]) {
-            vec.push_back(make_pair(i+1, S[i]));
-        }
-    }
-    sort(all(vec), greater<pair<ll, char>>());
     ll ans = 0;
-    ll vec_size = vec.size();
-    REP (i, vec_size) {
-        ll cnt = 0;
-        ll pre = (i == 0 ? s_size + 1 : vec[i-1].first);
-        REP (j,  pre - vec[i].first - 2) {
-            if (S[j + vec[i].first + 1] == vec[i].second) cnt++;
+    ll s_size = S.size();
+    map<char, ll> char_count;
+    pair<char, ll> pre = make_pair(' ', s_size);
+    for (int i = s_size - 1; i > 1; i--) {
+        char_count[S[i]]++;
+        if (S[i] != S[i - 1] && S[i - 1] == S[i - 2]) {
+            if (pre.first != S[i - 1]) {
+                ans += s_size - i;
+            } else {
+                ans += pre.second - i;
+            }
+            ans -= char_count[S[i - 1]];
+            pre.first = S[i - 1];
+            pre.second = i;
+            char_count = map<char, ll>();
         }
-        if (i != 0 && vec[i].second == vec[i-1].second) {
-            ans += vec[i-1].first - vec[i].first - 2;
-        } else {
-            ans += s_size - vec[i].first - 1;
-        }
-        ans -= cnt;
     }
     c(ans)
 }
