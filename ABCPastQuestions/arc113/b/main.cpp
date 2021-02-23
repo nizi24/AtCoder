@@ -88,27 +88,18 @@ ll s(ll a, ll x) {
 }
 
 void solve(long long A, long long B, long long C){
-    ll a = A % 10;
-    vint vec(10);
-    vec[0] = 1;
-    vec[1] = 1;
-    vec[2] = 4;
-    vec[3] = 4;
-    vec[4] = 2;
-    vec[5] = 1;
-    vec[6] = 1;
-    vec[7] = 4;
-    vec[8] = 4;
-    vec[9] = 2;
-    ll N = 0;
-    REP (i, 10) if (a == i) N = vec[i];
-    ll b = 0;
-    if (B % N == 0 && C % N == 0) {
-        b = N;
+    ll N = A % 10;
+    ll b = B % 4;
+    ll c = C % 4;
+    if (b == 0 && c == 0) {
+        b = 4;
     } else {
-        b = pow(B % N, C % N);
+        b = pow(b, c);
+        b %= 4;
     }
-    c(s(a, b % N))
+    if (b == 0) b = 4;
+    ll p = pow(N, b);
+    c(p % 10)
 }
 
 int main(){
