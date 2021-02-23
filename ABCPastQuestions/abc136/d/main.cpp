@@ -18,22 +18,16 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 
 void solve(std::string S){
     ll N = S.size();
-    vector<ll> res(N, 0);
-    vector<ll> div({0});
-    for (int i = 0; i < N;) {
-        ll j = i;
-        while (j < N && S[i] == S[j]) j++;
-        div.push_back(j);
-        
-        if (S[i] == 'L') {
-            ll R_cnt = div[div.size() - 2] - div[div.size() - 3];
-            ll L_cnt = div[div.size() - 1] - div[div.size() - 2];
-            res[i - 1] = myceil(R_cnt, 2LL) + L_cnt / 2;
-            res[i] = myceil(L_cnt, 2LL) + R_cnt / 2;
-        }
-
-        i = j;
+    vector<vector<ll>> vec(20, vector<ll>(N));
+    REP (i, N) {
+        if (S[i] == 'R') vec[0][i] = i + 1;
+        else vec[0][i] = i - 1;
     }
+    REP (i, 19) REP (j, N) {
+        vec[i + 1][j] = vec[i][vec[i][j]];
+    }
+    vector<ll> res(N, 0);
+    REP (i, N) res[vec[19][i]]++;
     REP (i, N) cout << res[i] << (i != N - 1 ? " " : "");
     cout << endl;
 }
