@@ -26,22 +26,17 @@ inline T sum(T n){return n*(n+1)/2;}
 
 
 void solve(long long N, long long K, long long R, long long S, long long P, std::string T){
-    long long ans = 0;
-    map<char, pair<char, long long>> point;
-    point['r'] = {'p', P};
-    point['s'] = {'r', R};
-    point['p'] = {'s', S};
-    vector<char> vec(N);
-    REP (i, N) {
-        if (K > i || vec[i - K] != point[T[i]].first) {
-            ans += point[T[i]].second;
-            vec[i] = point[T[i]].first;
-        } else {
-            vec[i] = ' ';
-        }
-    }
-    cout << ans << endl;
-}
+    vector<vector<long long>> dp(N+10, vector<long long>(3, 0));
+    REP (i, 3) dp[0][i] = 0;
+    map<char, pair<long long, long long>> pnt;
+    pnt['r'] = {2, P};
+    pnt['s'] = {0, R};
+    pnt['p'] = {1, S};
+    // TODO: DPで解く
+
+    long long max = 0;
+    REP (i, 3) chmax(max, dp[N][i]);
+    cout << max << endl;
 
 int main(){
     long long N;
