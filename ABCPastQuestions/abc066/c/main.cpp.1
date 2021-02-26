@@ -3,7 +3,6 @@ using namespace std;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;
-using Graph = vector<vector<ll>>;
 typedef vector<long long> vint;
 typedef pair<long long, long long> pint;
 #define MD 1000000007
@@ -25,7 +24,22 @@ bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!
 
 
 void solve(long long n, std::vector<long long> a){
-
+    deque<long long> deq;
+    REP (i, n) {
+        if (n % 2 == 0) {
+            if (i % 2 != 0) deq.push_front(a[i]);
+            else deq.push_back(a[i]);
+        } else {
+            if (i % 2 == 0) deq.push_front(a[i]);
+            else deq.push_back(a[i]);
+        }
+    }
+    REP (i, n) {
+        if (i != n - 1) cout << deq.front() << " ";
+        else cout << deq.front();
+        deq.pop_front();
+    }
+    c("")
 }
 
 int main(){

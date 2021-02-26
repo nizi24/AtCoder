@@ -25,9 +25,7 @@ bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!
 
 
 void solve(std::string S){
-    ll w_cnt = 0;
     ll N = S.size();
-    REP (i, N) if (S[i] == 'W') w_cnt++;
     ll cur = 0;
     ll ans = 0;
     REP (i, N) {
