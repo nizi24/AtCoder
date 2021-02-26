@@ -23,28 +23,48 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
-{% if mod %}
-const long long MOD = {{ mod }};
-{% endif %}
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
-
-{% if prediction_success %}
-void solve({{ formal_arguments }}){
-
+vector<pair<char, long long>> encode(const string& str) {
+    int n = (long long)str.size();
+    vector<pair<char, long long>> ret;
+    for (long long l = 0; l < n;) {
+        int r = l + 1;
+        for (; r < n && str[l] == str[r]; r++) {};
+        ret.push_back({str[l], r - l});
+        l = r;
+    }
+    return ret;
 }
-{% endif %}
+
+void solve(std::string S){
+    ll N = S.size();
+    ll ans = 0;
+    REP (i, N) {
+        ll j = i;
+        while (j < N - 1 && !(S[j] == '>' && S[j + 1] ==  '<')) {
+            j++;   
+        }
+        ll pre = ans;
+        string sub = S.substr(i, j - i + 1);
+        auto rle = encode(sub);
+        if (rle.size() == 2) {
+            ll mx = max(rle[0].second, rle[1].second);
+            ll mn = min(rle[0].second, rle[1].second);
+            ans += sum(mx);
+            ans += sum(mn - 1);
+            // cout << "mn=" << mn << " mx=" << mx << endl;
+        } else {
+            ans += sum(rle[0].second);
+            // cout << ans - pre << endl;
+        }
+        // cout << sub << endl;
+        i = j;
+    }
+    c(ans)
+}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    std::string S;
+    std::cin >> S;
+    solve(S);
     return 0;
 }
