@@ -3,6 +3,7 @@ using namespace std;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;
+using Graph = vector<vector<ll>>
 typedef vector<long long> vint;
 typedef pair<long long, long long> pint;
 #define MD 1000000007
