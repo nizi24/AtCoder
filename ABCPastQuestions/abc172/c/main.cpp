@@ -22,40 +22,42 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
-int main(){
-    ll N;
-    cin >> N;
-    vector<ll> A(N);
-    vector<vector<pair<ll, ll>>> xy(N);
-    REP (i, N) {
-        cin >> A[i];
-        REP (j, A[i]) {
-            ll x, y;
-            cin >> x >> y;
-            xy[i].push_back(make_pair(x, y));
-        }
-    }
+
+void solve(long long N, long long M, long long K, std::vector<long long> A, std::vector<long long> B){
+    vector<ll> a(N+1, 0), b(M+1, 0);
+    REP (i, N) a[i+1] = a[i] + A[i];
+    REP (i, M) b[i+1] = b[i] + B[i];
     ll max = 0;
-    for (int bit = 0; bit < (1 << N); bit++) {
-        bool ok = 1;
-        ll cnt = 0;
-        for (int i = 0; i < N; i++) {
-            if (!ok) break;
-            if (bit & (1 << i)) {
-                cnt++;
-                REP (j, A[i]) {
-                    if (bit & (1 << (xy[i][j].first - 1)) && xy[i][j].second == 0 ||
-                        ~bit & (1 << (xy[i][j].first - 1)) && xy[i][j].second == 1) {
-                        ok = 0;
-                        break;
-                    }
-                    // cout << xy[i][j].first << endl;
-                }
+    ll best = M;
+    REP (i, N+1) {
+        bool ok = 0;
+        for (int j = best; j >= 0; j--) {
+            if (a[i] + b[j] <= K) {
+                best = j;
+                ok = 1;
+                break;
             }
         }
-        // cout << "ok=" << ok << " cnt=" << cnt << endl;
-        if (ok) chmax(max, cnt);
+        if (ok) chmax(max, best + i);
     }
-    cout << max << endl;
+    c(max)
+}
+
+int main(){
+    long long N;
+    scanf("%lld",&N);
+    long long M;
+    scanf("%lld",&M);
+    long long K;
+    scanf("%lld",&K);
+    std::vector<long long> A(N);
+    for(int i = 0 ; i < N ; i++){
+        scanf("%lld",&A[i]);
+    }
+    std::vector<long long> B(M);
+    for(int i = 0 ; i < M ; i++){
+        scanf("%lld",&B[i]);
+    }
+    solve(N, M, K, std::move(A), std::move(B));
     return 0;
 }
