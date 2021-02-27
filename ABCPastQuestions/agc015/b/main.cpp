@@ -31,16 +31,12 @@ int main(){
     ll ans = 0;
     ll N = S.size();
     REP (i, N) {
-        if (i == 0 || i == N - 1) {
-            ans += N - 1;
+        if (S[i] == 'U') {
+            ans += N - i - 1;
+            ans += i * 2;
         } else {
-            if (S[i] == 'U') {
-                ans += N - i - 1;
-                ans += i * 2;
-            } else {
-                ans += (N - i - 1) * 2;
-                ans += i;
-            }
+            ans += (N - i - 1) * 2;
+            ans += i;
         }
     }
     c(ans)
