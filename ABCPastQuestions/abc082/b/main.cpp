@@ -3,7 +3,6 @@ using namespace std;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;
-using Graph = vector<vector<ll>>;
 typedef vector<long long> vint;
 typedef pair<long long, long long> pint;
 #define MD 1000000007
@@ -23,27 +22,22 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
+const string YES = "Yes";
+const string NO = "No";
 
-void solve(long long N, std::string s, std::string t){
-    ll dif = 0;
-    REP (i, N) {
-        REP (j, N - i) {
-            if (s[i + j] != t[j]) break;
-            dif++;
-        }
-        if (dif != N - i) dif = 0;
-        else break;
-    }
-    c(dif + (N - dif) * 2)
+void solve(std::string s, std::string t){
+    ALL(sort, s);
+    ALL(sort, t);
+    ALL(reverse, t);
+    if (s < t) c(YES)
+    else c(NO)
 }
 
 int main(){
-    long long N;
-    scanf("%lld",&N);
     std::string s;
     std::cin >> s;
     std::string t;
     std::cin >> t;
-    solve(N, s, t);
+    solve(s, t);
     return 0;
 }
