@@ -61,18 +61,10 @@ void solve(double K, std::string S, std::string T){
                 s += (i + 1) * pow(10, sm[i + 1]);
                 t += (i + 1) * pow(10, tm[i + 1]);
             }
-            // if (k == j) cnt[j + 1]--;
             double h = ((K - cnt[j + 1]) / (9 * K - 9)) * 10000;
-            // if (k == j) cnt[j + 1]++;
             if (s > t) {
                 s_win += g * h;
-                // cout << j + 1 << " " << k + 1 << endl;
-                // cout << g << " " <<  h << endl;
-            } else {
-                t_win += g * h;
-                // cout << j + 1 << " " << k + 1 << endl;
             }
-            // cout << s << " " << t << endl;
             s = 0;
             t = 0;
             ss.pop_back();
