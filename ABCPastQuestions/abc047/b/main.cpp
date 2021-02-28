@@ -23,27 +23,44 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
-const string YES = "Yes";
-const string NO = "No";
 
-void solve(long long N, long long A, long long B, long long C, long long D, std::string S){
-    
+void solve(long long W, long long H, long long N, std::vector<long long> x, std::vector<long long> y, std::vector<long long> a){
+    ll x_min = W;
+    ll x_max = 0;
+    ll y_min = H;
+    ll y_max = 0;
+    REP (i, N) {
+        if (a[i] == 1) {
+            chmax(x_max, x[i]);
+        } else if (a[i] == 2) {
+            chmin(x_min, x[i]);
+        } else if (a[i] == 3) {
+            chmax(y_max, y[i]);
+        } else {
+            chmin(y_min, y[i]);
+        }
+    }
+    ll X = max(0LL, x_min - x_max);
+    ll Y = max(0LL, y_min - y_max);
+    ll ans = X * Y;
+    c(ans)
 }
 
 int main(){
+    long long W;
+    scanf("%lld",&W);
+    long long H;
+    scanf("%lld",&H);
     long long N;
     scanf("%lld",&N);
-    long long A;
-    scanf("%lld",&A);
-    long long B;
-    scanf("%lld",&B);
-    long long C;
-    scanf("%lld",&C);
-    long long D;
-    scanf("%lld",&D);
-    std::string S;
-    std::cin >> S;
-    S.push_back(' ');
-    solve(N, A, B, C, D, S);
+    std::vector<long long> x(N);
+    std::vector<long long> y(N);
+    std::vector<long long> a(N);
+    for(int i = 0 ; i < N ; i++){
+        scanf("%lld",&x[i]);
+        scanf("%lld",&y[i]);
+        scanf("%lld",&a[i]);
+    }
+    solve(W, H, N, std::move(x), std::move(y), std::move(a));
     return 0;
 }
