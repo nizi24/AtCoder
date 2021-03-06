@@ -23,22 +23,7 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
 int main() {
-    ll N, M;
-    cin >> N;
-    vector<ll> D(N);
-    REP (i, N) cin >> D[i];
-    cin >> M;
-    vint T(M);
-    REP (i, M) cin >> T[i];
-
-    map<ll, ll> d, t;
-    REP (i, N) d[D[i]]++;
-    REP (i, M) t[T[i]]++;
-    for (auto m : t) {
-        if (d[m.first] < m.second) {
-            c("NO")
-            return 0;
-        }
-    }
-    c("YES")
+    string s;
+    cin >> s;
+    c(s.substr(0, s.size() - 8))
 }
