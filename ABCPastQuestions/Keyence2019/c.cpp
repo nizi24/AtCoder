@@ -3,6 +3,7 @@ using namespace std;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;
+using Graph = vector<vector<ll>>;
 typedef vector<long long> vint;
 typedef pair<long long, long long> pint;
 #define MD 1000000007
@@ -23,18 +24,38 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
 int main() {
-    ll N, M, K;
-    cin >> N >> M >> K;
+    ll N;
+    cin >> N;
+    vector<ll> A(N), B(N);
+    REP (i, N) cin >> A[i];
+    REP (i, N) cin >> B[i];
 
-    REP (i, N+1) {
-        REP (j, M+1) {
-            ll h = i * M;
-            ll w = j * N;
-            if (h + w - i * j * 2 == K) {
-                c("Yes")
-                return 0;
-            }
+    ll smA = 0;
+    ll smB = 0;
+    ll need = 0;
+    ll ans = 0;
+    priority_queue<ll> que;
+    REP (i, N) { 
+        smA += A[i];
+        smB += B[i];
+        if (A[i] >= B[i]) {
+            que.push(A[i] - B[i]);
+        } else {
+            need += B[i] - A[i];
+            ans++;
         }
     }
-    c("No")
+    if (smA < smB) {
+        c(-1)
+    } else {
+        while (!que.empty()) {
+            if (need <= 0) {
+                break;
+            }
+            need -= que.top();
+            que.pop();
+            ans++;
+        }
+        c(ans)
+    }
 }
