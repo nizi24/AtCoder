@@ -23,15 +23,25 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
 
-void solve(long long N, long long M){
-    c(1900 * pow(2, M) * M + (N - M) * pow(2, M) * 100)
+void solve(long long N, std::vector<long long> a){
+    ll min = INF64;
+    for (int i = -100; i <= 100; i++) {
+        ll cur = 0;
+        REP (j, N) {
+            cur += pow((a[j] - i), 2);
+        }
+        chmin(min, cur);
+    }
+    c(min)
 }
 
 int main(){
     long long N;
     scanf("%lld",&N);
-    long long M;
-    scanf("%lld",&M);
-    solve(N, M);
+    std::vector<long long> a(N);
+    for(int i = 0 ; i < N ; i++){
+        scanf("%lld",&a[i]);
+    }
+    solve(N, std::move(a));
     return 0;
 }
