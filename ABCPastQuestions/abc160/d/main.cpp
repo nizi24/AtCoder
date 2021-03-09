@@ -23,26 +23,27 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
-int main() {
-    ll N;
-    string S;
-    cin >> N >> S;
-    ll ans = 0;
-    REP (i, 1000) {
-        ll a = i / 100;
-        ll b = i % 100 / 10;
-        ll C = i % 10;
-        bool a_ok = 0; bool b_ok = 0; bool c_ok = 0;
-        REP (j, N) {
-            if (S[j] - '0' == C && a_ok && b_ok) c_ok = true;
-            else if (S[j] - '0' == b && a_ok) b_ok = true;
-            else if (S[j] - '0' == a) a_ok = true;
-            if (a_ok && b_ok && c_ok) {
-                ans++;
-                break;
-            }
-        }
-    }
-    c(ans)
+
+void solve(long long N, long long X, long long Y){
+	vector<ll> ans(N, 0);
+	for (int i = 1; i <= N; i++) {
+		for (int j = i + 1; j <= N; j++) {
+			if (i <= X && j >= Y) ans[j - i - (Y - X - 1)]++;
+			else if (i <= X) ans[min((ll)j - i, X - i + 1 + abs(Y - j))]++;
+			else if (i > X) ans[min((ll) j - i, i - X + 1 + abs(Y - j))]++;
+			else ans[j - i]++;
+		}
+	}
+	REP (i, N-1) cout << ans[i + 1] << endl;
+}
+
+int main(){
+    long long N;
+    scanf("%lld",&N);
+    long long X;
+    scanf("%lld",&X);
+    long long Y;
+    scanf("%lld",&Y);
+    solve(N, X, Y);
     return 0;
 }
