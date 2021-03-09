@@ -23,28 +23,27 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
-{% if mod %}
-const long long MOD = {{ mod }};
-{% endif %}
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
-
-{% if prediction_success %}
-void solve({{ formal_arguments }}){
-
-}
-{% endif %}
-
-int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+int main() {
+    ll N;
+    string S;
+    cin >> N >> S;
+    ll ans = 0;
+    REP (i, 1000) {
+        ll a = i / 100;
+        ll b = i % 100 / 10;
+        ll C = i % 10;
+        bool a_ok = 0; bool b_ok = 0; bool c_ok = 0;
+        REP (j, N) {
+            if (S[j] - '0' == C && a_ok && b_ok) c_ok = true;
+            else if (S[j] - '0' == b && a_ok) b_ok = true;
+            else if (S[j] - '0' == a) a_ok = true;
+            if (a_ok && b_ok && c_ok) {
+                ans++;
+                // c(a << b << C)
+                break;
+            }
+        }
+    }
+    c(ans)
     return 0;
 }
