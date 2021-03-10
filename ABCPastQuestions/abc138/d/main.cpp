@@ -20,6 +20,8 @@ struct Edge {
     Edge(int to, long long w) : to(to), w(w) {}
 };
 
+
+
 void solve(long long N, long long Q, std::vector<long long> a, std::vector<long long> b, std::vector<long long> p, std::vector<long long> x){
     vector<vector<Edge>> G(N+1);
     vector<ll> weight(N+1, 0);
