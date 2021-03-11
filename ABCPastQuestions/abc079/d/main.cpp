@@ -29,41 +29,26 @@ struct Edge {
 };
 
 void solve(long long H, long long W, std::vector<std::vector<long long>> C, std::vector<std::vector<long long>> A){
-    vector<vector<Edge>> G(10);
+    vector<vector<ll>> dp(10, vector<ll>(10, INF));
     REP (i, 10) {
         REP (j, 10) {
-            G[i].push_back(Edge(j, C[i][j]));
+            dp[i][j] = C[i][j];
         }
     }
+
+    REP (k, 10)
+        REP (i, 10)
+            REP (j, 10)
+                chmin(dp[i][j], dp[i][k] + dp[k][j]);
 
     ll ans = 0;
     REP (i, H) {
         REP (j, W) {
             if (A[i][j] == -1 || A[i][j] == 1) continue;
 
-            priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>> que;
-            vector<ll> dist(10, INF64);
-            que.push({0, A[i][j]});
-            dist[A[i][j]] = 0;
-
-            while (!que.empty()) {
-                auto d = que.top().first;
-                auto v = que.top().second;
-                que.pop();
-
-                if (d > dist[v]) continue;
-
-                for (auto x : G[v]) {
-                    if (chmin(dist[x.to], dist[v] + x.w)) {
-                        que.push({dist[x.to], x.to});
-                    }
-                }
-            }
-
-            ans += dist[1];
+            ans += dp[A[i][j]][1];
         }
     }
-    
     c(ans)
 }
 
