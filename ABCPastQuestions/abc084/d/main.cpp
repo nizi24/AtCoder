@@ -24,16 +24,24 @@ bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!
 
 
 void solve(long long Q, std::vector<long long> l, std::vector<long long> r){
-    vector<ll> vec(100001, 0);
+    vector<ll> prime(100010, 1);
+    prime[0] = 0;
+    prime[1] = 0;
+    for (int i = 2; i <= 100010; i++) {
+        if (!prime[i]) continue;
+        for (int j = i * 2; j <= 100010; j += i) prime[j] = 0;
+    }
+
+    vector<ll> cnt(100010, 0);
     for (int i = 1; i <= 100000; i++) {
-        if (is_prime(i) && is_prime((i + 1) / 2)) {
-            vec[i]++;
+        if (prime[i] && prime[(i + 1) / 2]) {
+            cnt[i]++;
         }
-        vec[i] += vec[i - 1];
+        cnt[i] += cnt[i - 1];
     }
 
     REP (i, Q) {
-        c(vec[r[i]] - vec[l[i] - 1])
+        c(cnt[r[i]] - cnt[l[i] - 1])
     }
 }
 
