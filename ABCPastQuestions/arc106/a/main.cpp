@@ -20,21 +20,12 @@ template<class T>inline T sum(T n){return n*(n+1)/2;}
 map<ll,ll> prime_fac(ll A) {map<ll,ll>mp;for(ll i=2;i*i<=A;i++){while(A%i== 0){mp[i]++;A/=i;}}if(A!=1){mp[A]=1;}return mp;}
 bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) return false;}return true;}
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
+ll pw(ll x, ll n){ll ret=1;while(n>0){if(n&1){ret*=x;}x *= x;n >>= 1;}return ret;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
-long long pw(long long x, long long n) {
-    long long ret = 1;
-    while (n > 0) {
-        if (n & 1) ret *= x;  // n の最下位bitが 1 ならば x^(2^i) をかける
-        x *= x;
-        n >>= 1;  // n を1bit 左にずらす
-    }
-    return ret;
-}
-
 void solve(long long N){
-    for (ll i = 1; i <= 37; i++) {
-        for (ll j = 1; j <= 25; j++) {
+    for (ll i = 1; pw(3, i) <= N; i++) {
+        for (ll j = 1; pw(5, j) <= N; j++) {
             if (pw(3, i) + pw(5, j) == N) {
                 c(i << " " << j)
                 return;
