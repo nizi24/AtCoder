@@ -23,23 +23,23 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
 
-void solve(long long N, long long M){
-    ll max = 1;
-    for (ll i = 1; i * i <= N; i++) {
-        if (i * N > M) break;
-        if (M % i == 0) {
-            chmax(max, i);
-            if (M/i * N <= M) chmax(max, M/i);
+void solve(long long N, std::string S){
+    ll ans = 0;
+    REP (i, N) {
+        map<char, ll> mp;
+        for (int j = i; j < N; j++) {
+            mp[S[j]]++;
+            if (mp['A'] == mp['T'] && mp['G'] == mp['C']) ans++;
         }
     }
-    c(max)
+    c(ans)
 }
 
 int main(){
     long long N;
     scanf("%lld",&N);
-    long long M;
-    scanf("%lld",&M);
-    solve(N, M);
+    std::string S;
+    std::cin >> S;
+    solve(N, S);
     return 0;
 }
