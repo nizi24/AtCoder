@@ -9,7 +9,7 @@ typedef pair<long long, long long> pint;
 #define INF64 INT64_MAX / 2
 #define EPS 0.001
 #define EPS14  1.0E-14
-#define REP(i, n) for (ll i = 0; i < n; i++)
+#define REP(i, n) for (int i = 0; i < n; i++)
 #define all(x) (x).begin(),(x).end()
 #define ALL(f,c,...) (([&](decltype((c)) cccc) { return (f)(std::begin(cccc), std::end(cccc), ## __VA_ARGS__); })(c))
 #define c(n) cout<<n<<endl;
@@ -23,28 +23,35 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 ll pw(ll x, ll n){ll ret=1;while(n>0){if(n&1){ret*=x;}x *= x;n >>= 1;}return ret;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
-{% if mod %}
-const long long MOD = {{ mod }};
-{% endif %}
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
-
-{% if prediction_success %}
-void solve({{ formal_arguments }}){
-
+bool st(pair<ll, ll> first, pair<ll, ll> second) {
+    if (first.first < second.first) return true;
+    else if (first.first == second.first && first.second > second.second) return true;
+    return false;
 }
-{% endif %}
 
-int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+int main() {
+    ll N;
+    cin >> N;
+    vector<ll> x(N), y(N);
+    REP (i, N) cin >> x[i] >> y[i];
+
+    vector<pair<ll, ll>> xy;
+    REP (i, N) xy.push_back({x[i], y[i]});
+    sort(all(xy));
+
+    map<pair<ll, ll>, ll> cnt;
+    REP (i, N) {
+        for (int j = i + 1; j < N; j++) {
+            cnt[{xy[j].first - xy[i].first, xy[j].second - xy[i].second}]++;
+        }
+    }
+
+    ll max = 0;
+    for (auto c : cnt) {
+        chmax(max, c.second);
+    }
+
+    c(N - max)
+
     return 0;
 }
