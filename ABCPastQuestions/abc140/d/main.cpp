@@ -24,29 +24,48 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 ll pw(ll x, ll n){ll ret=1;while(n>0){if(n&1){ret*=x;}x *= x;n >>= 1;}return ret;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
-vector<ll> memo(100010, -1);
-long long rec(int N) {
-
-    if (N == 0) return 0;
-    if (memo[N] != -1) return memo[N];
-
-    ll res = N;
-
-    for (int i = 1; i <= N; i *= 6) chmin(res, rec(N - i) + 1);
-
-    for (int i = 1; i <= N; i *= 9) chmin(res, rec(N - i) + 1);
-
-    return memo[N] = res;
-    
+vector<pair<char, long long>> encode(const string& str) {
+    int n = (long long)str.size();
+    vector<pair<char, long long>> ret;
+    for (long long l = 0; l < n;) {
+        int r = l + 1;
+        for (; r < n && str[l] == str[r]; r++) {};
+        ret.push_back({str[l], r - l});
+        l = r;
+    }
+    return ret;
 }
 
-void solve(long long N) {
-    c(rec(N))
+void solve(long long N, long long K, std::string S){
+    auto rle = encode(S);
+
+    ll ans = 0;
+    ll size = rle.size();
+    for (auto s : rle) {
+        ans += s.second - 1;
+    }
+
+    ll div = size / 2;
+    if (size % 2 == 0) {
+        if (K >= div) {
+            ans += div * 2 - 1;
+        } else {
+            ans += K * 2;
+        }
+    } else {
+        ans += min(K, div) * 2;
+    }
+
+    c(ans)
 }
 
 int main(){
     long long N;
     scanf("%lld",&N);
-    solve(N);
+    long long K;
+    scanf("%lld",&K);
+    std::string S;
+    std::cin >> S;
+    solve(N, K, S);
     return 0;
 }
