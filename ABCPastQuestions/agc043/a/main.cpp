@@ -26,51 +26,32 @@ bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!
 
 
 void solve(long long H, long long W, std::vector<std::string> s){
-    priority_queue<pair<ll, pair<ll, ll>>, vector<pair<ll, pair<ll, ll>>>, greater<pair<ll, pair<ll, ll>>>> que;
-    vector<vector<ll>> dist(H, vector<ll>(W, INF));
+    vector<vector<ll>> dp(H, vector<ll>(W, INF));
 
-    if (s[0][0] == '.') dist[0][0] = 0;
-    else dist[0][0] = 1;
-    que.push({dist[0][0], {0, 0}});
-    while (!que.empty()) {
-        ll w = que.top().first;
-        ll y = que.top().second.first;
-        ll x = que.top().second.second;
+    if (s[0][0] == '#') dp[0][0] = 1;
+    else dp[0][0] = 0;
 
-        que.pop();
-
-        if (w > dist[y][x]) continue;
-
-        if (x + 1 < W) {
-            ll ps = 0;
-            if (s[y][x + 1] != s[y][x] && s[y][x] != '#') {
-                if (chmin(dist[y][x + 1], w + 1)) ps = 1;
-            } else {
-               if (chmin(dist[y][x + 1], w)) ps = 1;
+    REP (i, H) {
+        REP (j, W) {
+            if (i + 1 < H) {
+                if (s[i][j] != s[i + 1][j] && s[i][j] != '#') {
+                    chmin(dp[i + 1][j], dp[i][j] + 1);
+                } else {
+                    chmin(dp[i + 1][j], dp[i][j]);
+                }
             }
-            if (ps) que.push({dist[y][x + 1], {y, x + 1}});
-        }
 
-        if (y + 1 < H) {
-            ll ps = 0;
-            if (s[y + 1][x] != s[y][x] && s[y][x] != '#') {
-                if (chmin(dist[y + 1][x], w + 1)) ps = 1;
-            } else {
-                if (chmin(dist[y + 1][x], w)) ps = 1;
+            if (j + 1 < W) {
+                if (s[i][j] != s[i][j + 1] && s[i][j] != '#') {
+                    chmin(dp[i][j + 1], dp[i][j] + 1);
+                } else {
+                    chmin(dp[i][j + 1], dp[i][j]);
+                }
             }
-            if (ps) que.push({dist[y + 1][x], {y + 1, x}});
         }
     }
 
-    // REP (i, H) {
-    //     REP (j, W) {
-    //         if (dist[i][j] != INF) cout << dist[i][j];
-    //         else cout << "X";
-    //     }
-    //     cout << endl;
-    // }
-
-    c(dist[H-1][W-1])
+    c(dp[H-1][W-1])
 }
 
 int main(){
