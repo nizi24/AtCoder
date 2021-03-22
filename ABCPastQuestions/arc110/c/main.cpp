@@ -24,45 +24,42 @@ bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!
 
 
 void solve(long long N, std::vector<long long> P){
-    ll pos = 0;
-    ll neg = 0;
-    set<ll> st;
-    vector<tuple<ll, ll, ll>> vec; 
-    for (int i = 1; i <= N; i++) {
-        if (i > P[i]) {
-            pos += i - P[i];
-        } else if (i < P[i]) {
-            neg += P[i] - i;
-        } else {
+    queue<ll> que;
+
+    ll prev = 0;
+    for (int i = 0; i < N; i++) {
+        if (prev + 1 == P[i]) {
+            for (int j = i; j > prev; j--) {
+                swap(P[j], P[j - 1]);
+                que.push(j);
+            }
+            prev = i;
+        }
+    }
+
+    REP (i, N) {
+        if ((i + 1) != P[i]) {
             c(-1)
             return;
         }
-        vec.push_back({P[i], i, P[i] - i});
     }
 
-    if (pos == N - 1 && neg == N - 1) {
-        sort(all(vec));
-
-        REP (i, N) {
-            if (get<2>(vec[i]) < 0) {
-                for (int j = 1; j <= abs(get<2>(vec[i])); j++) {
-                    if (!st.count(get<1>(vec[i]) - j)) {
-                        c(get<1>(vec[i]) - j)
-                        st.insert(get<1>(vec[i]) - j);
-                    }
-                }
-            }
-        }
-    } else {
+    if (que.size() != N - 1) {
         c(-1)
+        return;
+    }
+
+    REP (i, N-1) {
+        cout << que.front() << " ";
+        que.pop();
     }
 }
 
 int main(){
     long long N;
     scanf("%lld",&N);
-    std::vector<long long> P(N+1);
-    for(int i = 1 ; i <= N ; i++){
+    std::vector<long long> P(N);
+    for(int i = 0 ; i < N ; i++){
         scanf("%lld",&P[i]);
     }
     solve(N, std::move(P));
