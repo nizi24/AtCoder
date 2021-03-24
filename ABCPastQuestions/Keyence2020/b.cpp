@@ -30,7 +30,7 @@ int main() {
     vector<ll> X(N), L(N);
     REP (i, N) cin >> X[i] >> L[i];
 
-    // first = 終端, second = 先端
+    // first = 終端, second = 始端
     vector<pair<ll, ll>> arm(N);
     REP (i, N) arm[i] = {X[i] + L[i], X[i] - L[i]};
     ALL(sort, arm);
