@@ -35,7 +35,7 @@ const string NO = "{{ no_str }}";
 {% endif %}
 
 {% if prediction_success %}
-void solve({{ formal_arguments }}){
+void solve({{ formal_arguments }}) {
 
 }
 {% endif %}
