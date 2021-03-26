@@ -3,26 +3,18 @@
 
 #include __FILE__ 
 
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
-
-{% if prediction_success %}
-void solve({{ formal_arguments }}) {
-
+void solve(long long x, long long y) {
+    vector<ll> group = {0, 1, 2, 1, 3, 1, 3, 1, 1, 3, 1, 3, 1};
+    if (group[x] == group[y]) c(YES)
+    else c(NO)
 }
-{% endif %}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    long long x;
+    scanf("%lld",&x);
+    long long y;
+    scanf("%lld",&y);
+    solve(x, y);
     return 0;
 }
 
@@ -53,6 +45,9 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 ll pw(ll x, ll n){ll ret=1;while(n>0){if(n&1){ret*=x;}x *= x;n >>= 1;}return ret;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
+
+const string YES = "Yes";
+const string NO = "No";
 
 // modint: mod 計算を int を扱うように扱える構造体
 template<int MOD> struct Fp {
