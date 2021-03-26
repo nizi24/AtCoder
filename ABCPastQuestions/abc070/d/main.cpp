@@ -30,6 +30,13 @@ struct Edge {
 
 using Graph = vector<vector<Edge>>;
 
+void dfs(int v, int p, ll sum, vector<ll> &dist, const Graph &G) {
+    dist[v] = sum;
+    for (auto e : G[v]) {
+        if (e.to == p) continue;
+        dfs(e.to, v, sum + e.w, dist, G);
+    }
+}
 
 void solve(long long N, std::vector<long long> a, std::vector<long long> b, std::vector<long long> C, long long Q, long long K, std::vector<long long> x, std::vector<long long> y){
     Graph G(N);
@@ -39,22 +46,8 @@ void solve(long long N, std::vector<long long> a, std::vector<long long> b, std:
     }
     K--;
 
-    queue<ll> que;
-    vector<ll> dist(N, INF);
-    dist[K] = 0;
-    que.push(K);
-
-    while (!que.empty()) {
-        ll v = que.front();
-        que.pop();
-
-        for (auto n : G[v]) {
-            if (dist[n.to] != INF) continue;
-
-            dist[n.to] = dist[v] + n.w;
-            que.push(n.to);
-        }
-    }
+    vector<ll> dist(N, 0);
+    dfs(K, -1, 0, dist, G);
 
     REP (i, Q) {
         c(dist[x[i] - 1] + dist[y[i] - 1])

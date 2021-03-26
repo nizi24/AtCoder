@@ -3,19 +3,21 @@
 
 #include __FILE__ 
 
-{% if prediction_success %}
-void solve({{ formal_arguments }}) {
+void solve(std::vector<std::string> s) {
+    string ans = "";
+    REP (i, s.size()) {
+        ans.push_back(toupper(s[i][0]));
+    }
 
+    c(ans)
 }
-{% endif %}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    std::vector<std::string> s(3);
+    for(int i = 0 ; i < 3 ; i++){
+        std::cin >> s[i];
+    }
+    solve(std::move(s));
     return 0;
 }
 
@@ -47,14 +49,5 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 ll pw(ll x, ll n){ll ret=1;while(n>0){if(n&1){ret*=x;}x *= x;n >>= 1;}return ret;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
-{% if mod %}
-const long long MOD = {{ mod }};
-{% endif %}
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
 
 #endif  // INCLUDED_MAIN
