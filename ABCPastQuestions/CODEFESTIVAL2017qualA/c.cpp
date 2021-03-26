@@ -44,25 +44,20 @@ int main() {
     }
 
     for (auto m : cnt) {
-        bool ok = 0;
 
         while (four && m.second >= 4) {
             four--;
             m.second -= 4;
-            ok = 1;
         }
 
         while (two && m.second >= 2) {
             two--;
-            
             m.second -= 2;
-            ok = 1;
         }
 
         if (one && m.second == 1) {
             one = 0;
             m.second--;
-            ok = 1;
         }
 
         if (m.second) {
