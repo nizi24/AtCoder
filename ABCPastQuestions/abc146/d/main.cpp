@@ -41,14 +41,9 @@ void solve(long long N, std::vector<long long> a, std::vector<long long> b){
         for (auto n : G[v.first]) {
             if (dist[n.first] != INF) continue;
 
-            if (i == v.second) {
-                i++;
-                ans[n.second] = i;
-                que.push({n.first, i});
-            } else {
-                ans[n.second] = i;
-                que.push({n.first, i});
-            }
+            if (i == v.second) i++;
+            ans[n.second] = i;
+            que.push({n.first, i});
             i++;
 
             dist[n.first] = dist[v.first] + 1;
