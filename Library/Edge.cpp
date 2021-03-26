@@ -3,3 +3,5 @@ struct Edge {
     long long w; // 重み
     Edge(int to, long long w) : to(to), w(w) {}
 };
+
+using Graph = vector<vector<Edge>>;

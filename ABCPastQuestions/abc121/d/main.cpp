@@ -35,13 +35,11 @@ void solve(long long A, long long B) {
         ll bit = (1LL << i);
         ll a = max(0LL, (A - 1) / power[i] - (((A - 1) & bit) > 0)) - prev;
         ll b = max(0LL, B / power[i] - ((B & bit) > 0)) - prev_b;
-        // c(prev << " " << prev_b)
 
         prev = (A - 1) / power[i];
         prev_b = B / power[i];
         a *= power[i]; b *= power[i];
 
-        // c(a << " " << b << " " << power[i])
         if ((A - 1) & bit) {
             a++;    
             REP (j, i) {
@@ -67,7 +65,6 @@ void solve(long long A, long long B) {
         }
         
         cnt[i] = b - a;
-        // c(a << " " << b << " " << power[i])
     }
 
     ll ans = 0;
