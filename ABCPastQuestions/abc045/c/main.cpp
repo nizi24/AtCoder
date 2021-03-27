@@ -24,55 +24,29 @@ template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 ll pw(ll x, ll n){ll ret=1;while(n>0){if(n&1){ret*=x;}x *= x;n >>= 1;}return ret;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
 
-void rec(int n, int t, vector<string> &res, string cur, int bit) {
-    if (bit == (1 << n) - 1) {
-        res.push_back(cur);
-        return;
-    }
 
-    vector<pair<ll, ll>> bit_search;
-    for (int i = 0; i < n; i++) {
-        if (!(bit & (1 << i))) {
-            bit_search.push_back({(1 << i), n - i - 1});
-        }
-    }
-
-    ll N = bit_search.size();
-    ll next = bit + bit_search[N - 1].first;
-    string C = cur;
-    C[bit_search[N - 1].second] = 'a' + t;
-
-
-    for (int b = 0; b < (1 << N - 1); b++) {
-        string c = C;
-        int next_bit = next;
-
-        for (int i = 0; i < N - 1; i++) {
-            if (b & (1 << i)) {
-                c[bit_search[i].second] = 'a' + t;
-                next_bit += bit_search[i].first;
-            }
-        }
-
-        rec(n, t + 1, res, c, next_bit);
-    }
+void solve(long long S){
+	string num_str = to_string(S);
+	ll N = num_str.size();
+	ll sum = 0;
+	for (int bit = 0; bit < (1 << N - 1); bit++) {
+		ll cur = 0;
+		ll iter = 0;
+		for (int i = 0; i < N - 1; i++) {
+			if (bit & (1 << i)) {
+				cur += stoll(num_str.substr(iter, i - iter + 1));
+				iter = i + 1;
+			}
+		}
+		cur += stoll(num_str.substr(iter, N - iter));
+		sum += cur;
+	}
+	cout << sum << endl;
 }
 
-int main() {
-    ll N;
-    cin >> N;
-
-    vector<string> res;
-    string cur;
-    REP (i, N) cur.push_back(' ');
-    rec(N, 0, res, cur, 0);
-
-    sort(all(res));
-
-    REP (i, res.size()) {
-        c(res[i])
-    }
-
-
+int main(){
+    long long S;
+    scanf("%lld",&S);
+    solve(S);
     return 0;
 }
