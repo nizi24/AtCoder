@@ -1,36 +1,3 @@
-#ifndef INCLUDED_MAIN
-#define INCLUDED_MAIN
-
-#include __FILE__ 
-
-using Point = complex<double>;
-
-// 点pを反時計回りにtheta度回転
-Point rotate(const Point &p, const double &theta) {
-    return Point(cos(theta) * p.real() - sin(theta) * p.imag(),
-                 sin(theta) * p.real() + cos(theta) * p.imag());
-}
-
-int main(){
-    ll N;
-    cin >> N;
-    double x0, y0, x2, y2;
-    cin >> x0 >> y0 >> x2 >> y2;
-
-    const double PI=3.14159265358979323846;
-    double th = (double)360 / N / 180.0 * PI;
-    Point p0 = {x0, y0};
-    Point pn = {x2, y2};
-    Point center = (p0 + pn) / 2;
-
-    Point p1 = rotate(p0, th) + center;
-    cf(p1.real() << " " << p1.imag())
-
-    return 0;
-}
-
-#else  // INCLUDED_MAIN
-
 #include <bits/stdc++.h>
 using namespace std;
 using i64 = int64_t;
@@ -117,9 +84,8 @@ template<int MOD> struct Fp {
 #define MD 1000000007
 using mint = Fp<MD>;
 
-// 二項係数
-const int MAX = 510000; // 問題ごとに変更する
-const int MOD = 1000000007; // 問題ごとに変更する
+const int MAX = 2010;
+const int MOD = 1000000007;
 
 long long fac[MAX], finv[MAX], inv[MAX];
 
@@ -142,70 +108,19 @@ long long COM(int n, int k){
     return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
 }
 
-/* encode: ランレングス圧縮を行う
-*/
-vector<pair<char, long long>> encode(const string& str) {
-    int n = (long long)str.size();
-    vector<pair<char, long long>> ret;
-    for (long long l = 0; l < n;) {
-        int r = l + 1;
-        for (; r < n && str[l] == str[r]; r++) {};
-        ret.push_back({str[l], r - l});
-        l = r;
+void solve(long long S){
+    COMinit();
+	mint ans = 0;
+    for (int i = 1; i <= S/3; i++) {
+        ll p = S - i * 3;
+        ans += COM(i + p - 1, p);
     }
-    return ret;
-}
-/* decode: ランレングス圧縮の復元を行う
-*/
-string decode(const vector<pair<char, long long>>& code) {
-    string ret = "";
-    for (auto p : code) {
-        for (long long i = 0; i < p.second; i++) {
-            ret.push_back(p.first);
-        }
-    }
-    return ret;
+	c(ans)
 }
 
-struct Edge {
-    int to; // 隣接頂点番号
-    long long w; // 重み
-    Edge(int to, long long w) : to(to), w(w) {}
-};
-
-using Graph = vector<vector<Edge>>;
-
-// UnionFied構造体
-struct UnionFind {
-    vector<long long> par, siz;
-
-    UnionFind(long long n) : par(n, -1) , siz(n, 1) { }
-
-    // 根を求める
-    long long root(long long x) {
-        if (par[x] == -1) return x;
-        else return par[x] = root(par[x]);
-    }
-
-    // x と y が同じグループに属するかどうか (根が一致するかどうか)
-    bool issame(long long x, long long y) {
-        return root(x) == root(y);
-    }
-
-    // x を含むグループと y を含むグループとを併合する
-    bool unite(long long x, long long y) {
-        x = root(x), y = root(y);
-        if (x == y) return false; 
-        if (siz[x] < siz[y]) swap(x, y);
-        par[y] = x;
-        siz[x] += siz[y];
-        return true;
-    }
-
-    // x を含むグループのサイズ
-    long long size(long long x) {
-        return siz[root(x)];
-    }
-};
-
-#endif  // INCLUDED_MAIN
+int main(){
+    long long S;
+    scanf("%lld",&S);
+    solve(S);
+    return 0;
+}
