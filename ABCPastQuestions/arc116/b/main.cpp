@@ -1,3 +1,41 @@
+#ifndef INCLUDED_MAIN
+#define INCLUDED_MAIN
+
+#include __FILE__ 
+
+
+void solve(long long N, std::vector<long long> A) {
+    mint ans = 0;
+    ALL(sort, A);
+
+    mint sm = A[N-1];
+    for (int i = N - 2; i >= 0; i--) {
+        ans += sm * A[i];
+        sm *= 2;
+        sm += A[i];
+    }
+
+    REP (i, N) {
+        mint a = A[i];
+        ans += a * a;
+    }
+
+    c(ans)
+}
+
+int main(){
+    long long N;
+    scanf("%lld",&N);
+    std::vector<long long> A(N);
+    for(int i = 0 ; i < N ; i++){
+        scanf("%lld",&A[i]);
+    }
+    solve(N, std::move(A));
+    return 0;
+}
+
+#else  // INCLUDED_MAIN
+
 #include <bits/stdc++.h>
 using namespace std;
 using i64 = int64_t;
@@ -81,11 +119,12 @@ template<int MOD> struct Fp {
     }
 };
 
-#define MD 1000000007
+#define MD 998244353
 using mint = Fp<MD>;
 
-const int MAX = 2010;
-const int MOD = 1000000007;
+// 二項係数
+const int MAX = 510000; // 問題ごとに変更する
+const int MOD = 1000000007; // 問題ごとに変更する
 
 long long fac[MAX], finv[MAX], inv[MAX];
 
@@ -108,30 +147,70 @@ long long COM(int n, int k){
     return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
 }
 
-void solve(long long S){
-    vector<mint> dp(S+1, 0);
-    dp[0] = 1;
-    REP (i, S+1) {
-        for (int j = 0; j <= i - 3; j++) {
-            dp[i] += dp[j];
+/* encode: ランレングス圧縮を行う
+*/
+vector<pair<char, long long>> encode(const string& str) {
+    int n = (long long)str.size();
+    vector<pair<char, long long>> ret;
+    for (long long l = 0; l < n;) {
+        int r = l + 1;
+        for (; r < n && str[l] == str[r]; r++) {};
+        ret.push_back({str[l], r - l});
+        l = r;
+    }
+    return ret;
+}
+/* decode: ランレングス圧縮の復元を行う
+*/
+string decode(const vector<pair<char, long long>>& code) {
+    string ret = "";
+    for (auto p : code) {
+        for (long long i = 0; i < p.second; i++) {
+            ret.push_back(p.first);
         }
     }
-
-    c(dp[S])
-
-
-    // COMinit();
-	// mint ans = 0;
-    // for (int i = 1; i <= S/3; i++) {
-    //     ll p = S - i * 3;
-    //     ans += COM(i + p - 1, p);
-    // }
-	// c(ans)
+    return ret;
 }
 
-int main(){
-    long long S;
-    scanf("%lld",&S);
-    solve(S);
-    return 0;
-}
+struct Edge {
+    int to; // 隣接頂点番号
+    long long w; // 重み
+    Edge(int to, long long w) : to(to), w(w) {}
+};
+
+using Graph = vector<vector<Edge>>;
+
+// UnionFied構造体
+struct UnionFind {
+    vector<long long> par, siz;
+
+    UnionFind(long long n) : par(n, -1) , siz(n, 1) { }
+
+    // 根を求める
+    long long root(long long x) {
+        if (par[x] == -1) return x;
+        else return par[x] = root(par[x]);
+    }
+
+    // x と y が同じグループに属するかどうか (根が一致するかどうか)
+    bool issame(long long x, long long y) {
+        return root(x) == root(y);
+    }
+
+    // x を含むグループと y を含むグループとを併合する
+    bool unite(long long x, long long y) {
+        x = root(x), y = root(y);
+        if (x == y) return false; 
+        if (siz[x] < siz[y]) swap(x, y);
+        par[y] = x;
+        siz[x] += siz[y];
+        return true;
+    }
+
+    // x を含むグループのサイズ
+    long long size(long long x) {
+        return siz[root(x)];
+    }
+};
+
+#endif  // INCLUDED_MAIN
