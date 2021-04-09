@@ -4,6 +4,30 @@
 #include __FILE__ 
 
 int main(){
+    ll N, M;
+    cin >> N >> M;
+    vector<ll> A(N);
+    REP (i, N) cin >> A[i];
+    vector<ll> X(M), Y(M);
+    REP (i, M) cin >> X[i] >> Y[i];
+
+    vector<ll> dp(N+1, INF64);
+    vector<vector<ll>> G(N+1);
+    REP (i, M) G[X[i] - 1].push_back(Y[i] - 1);
+
+    REP (i, N) {
+        for (auto j : G[i]) {
+            chmin(dp[j], min(dp[i], A[i]));
+            c(dp[j] << " " << i + 1 << " " << j + 1)
+        }
+    }
+
+    ll mx = -INF64;
+    REP (i, N) {
+        chmax(mx, A[i] - dp[i]);
+    }
+
+    c(mx)
 
     return 0;
 }
