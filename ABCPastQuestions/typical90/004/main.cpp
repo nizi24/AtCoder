@@ -5,7 +5,22 @@
 
 
 void solve(long long H, long long W, std::vector<std::vector<long long>> A) {
+    vector<ll> h(W, 0);
+    vector<ll> w(H, 0);
 
+    REP (i, H) {
+        REP (j, W) {
+            h[j] += A[i][j];
+            w[i] += A[i][j];
+        }
+    }
+
+    REP (i, H) {
+        REP (j, W) {
+            cout << h[j] + w[i] - A[i][j] << " ";
+        }
+        cout << endl;
+    }
 }
 
 int main(){
