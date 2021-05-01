@@ -3,8 +3,44 @@
 
 #include __FILE__ 
 
+int bfs(vector<vint> &G, int start, int N, ll &mx) {
+    vector<ll> dist(N, -1);
+    dist[start] = 0;
+    queue<ll> que;
+    que.push(start);
+
+    while (!que.empty()) {
+        ll v = que.front();
+        que.pop();
+
+        for (auto n : G[v]) {
+            if (dist[n] != -1) continue;
+
+            dist[n] = dist[v] + 1;
+            que.push(n);
+        }
+    }
+
+    ll mx_i = 0;
+    REP (i, N) {
+        if (chmax(mx, dist[i])) mx_i = i;
+    }
+
+    return mx_i;
+}
 
 void solve(long long N, std::vector<long long> A, std::vector<long long> B) {
+    vector<vint> G(N);
+    REP (i, N-1) {
+        G[A[i]-1].push_back(B[i]-1);
+        G[B[i]-1].push_back(A[i]-1);
+    }
+
+    ll mx = 0;
+    int start = bfs(G, 0, N, mx);
+    int ans = bfs(G, start, N, mx);
+
+    c(mx + 1)
 
 }
 
