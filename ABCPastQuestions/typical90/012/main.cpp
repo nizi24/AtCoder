@@ -8,7 +8,57 @@ const string NO = "No";
 
 
 int main(){
-    // Failed to predict input format
+    ll H, W, Q;
+    cin >> H >> W >> Q;
+    vector<vint> query(Q);
+    REP (i, Q) {
+        int type;
+        cin >> type;
+        if (type == 1) {
+            vint q(3);
+            q[0] = type-1;
+            cin >> q[1] >> q[2];
+            query[i] = q;
+        } else {
+            vint q(5);
+            q[0] = type - 1;
+            cin >> q[1] >> q[2] >> q[3] >> q[4];
+            query[i] = q;
+        }
+    }
+
+    vector<vector<ll>> field(H, vector<ll>(W, 0));
+    UnionFind Uf(H * W);
+    vector<ll> ver = {-1, 0, 1, 0};
+    vector<ll> hol = {0, -1, 0, 1};
+
+    REP (i, Q) {
+        if (query[i][0]) {
+            ll y1 = query[i][1] - 1;
+            ll x1 = query[i][2] - 1;
+            ll y2 = query[i][3] - 1;
+            ll x2 = query[i][4] - 1;
+
+            if (field[y1][x1] && field[y2][x2] && Uf.issame(y1 * W + x1, y2 * W + x2)) {
+                c("Yes")
+            } else c("No")
+
+        } else {
+            ll y = query[i][1] - 1;
+            ll x = query[i][2] - 1;
+            field[y][x] = 1;
+
+            REP (j, 4) {
+                if (y + ver[j] < 0 || y + ver[j] >= H) continue;
+                if (x + hol[j] < 0 || x + hol[j] >= W) continue;
+
+                if (field[y + ver[j]][x + hol[j]]) {
+                    Uf.unite(((y + ver[j]) * W) + x + hol[j], y * W + x);
+                }
+            }
+        }
+    }
+
     return 0;
 }
 
