@@ -3,29 +3,25 @@
 
 #include __FILE__ 
 
+const string YES = "Yes";
+const string NO = "No";
 
-void solve(long long N, std::vector<long long> A, long long Q, std::vector<long long> B) {
-    ALL(sort, A);
-
-    REP (i, Q) {
-        
+void solve(long long A, long long B, long long C) {
+    if (A * A + B * B < C * C) {
+        c(YES)
+    } else {
+        c(NO)
     }
 }
 
 int main(){
-    long long N;
-    scanf("%lld",&N);
-    std::vector<long long> A(N);
-    for(int i = 0 ; i < N ; i++){
-        scanf("%lld",&A[i]);
-    }
-    long long Q;
-    scanf("%lld",&Q);
-    std::vector<long long> B(Q);
-    for(int i = 0 ; i < Q ; i++){
-        scanf("%lld",&B[i]);
-    }
-    solve(N, std::move(A), Q, std::move(B));
+    long long A;
+    scanf("%lld",&A);
+    long long B;
+    scanf("%lld",&B);
+    long long C;
+    scanf("%lld",&C);
+    solve(A, B, C);
     return 0;
 }
 
