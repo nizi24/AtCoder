@@ -5,7 +5,19 @@
 
 
 void solve(long long N, std::string S) {
+    string atcoder = "atcoder";
+    vector<mint> pattern(7, 0);
 
+    REP (i, N) {
+        REP (j, 7) {
+            if (S[i] == atcoder[j]) {
+                if (j == 0) pattern[0] += 1;
+                else pattern[j] += pattern[j - 1];
+            }
+        }
+    }
+
+    c(pattern[6])
 }
 
 int main(){
