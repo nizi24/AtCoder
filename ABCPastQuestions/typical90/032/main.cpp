@@ -5,7 +5,29 @@
 
 
 void solve(long long N, std::vector<std::vector<long long>> A, long long M, std::vector<long long> X, std::vector<long long> Y) {
+    ll min = INF64;
+    vint l;
+    REP (i, N) l.push_back(i);
+    vector<set<ll>> uwasa(N);
+    REP (i, M) {
+        uwasa[X[i]-1].insert(Y[i]-1);
+        uwasa[Y[i]-1].insert(X[i]-1);
+    }
 
+    do {
+        ll cur = 0;
+        bool ok = 1;
+        REP (i, N) {
+            cur += A[l[i]][i];
+            if (i < N - 1 && uwasa[l[i]].count(l[i + 1])) ok = 0;
+        }
+
+        if (ok) chmin(min, cur);
+        
+    } while (next_permutation(all(l)));
+
+    if (min == INF64) c(-1)
+    else c(min)
 }
 
 int main(){
