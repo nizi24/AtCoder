@@ -4,54 +4,16 @@
 #include __FILE__ 
 
 
-void solve(long long N, std::vector<long long> lx, std::vector<long long> ly, std::vector<long long> rx, std::vector<long long> ry) {
-    vector<ll> h(1010, 0), nh(1010, 0);
-    vector<vector<pair<ll, ll>>> v(1010), nv(1010);
+void solve(long long H, long long W) {
 
-    REP (i, N) {
-        v[ry[i]].push_back({lx[i], rx[i]});
-        nv[ly[i]].push_back({lx[i], rx[i]});
-    }
-
-    vector<ll> ans(N+1, 0);
-    for (int i = 1000; i >= 0; i--) {
-        REP (j, v[i].size()) {
-            h[v[i][j].first]++;
-            h[v[i][j].second]--;
-        }
-
-        REP (j, nv[i].size()) {
-            h[nv[i][j].first]--;
-            h[nv[i][j].second]++;
-        }
-
-        ll cur = 0;
-        REP (j, 1000) {
-            // cout << h[j] << " ";
-            cur += h[j];
-
-            ans[cur]++;
-        }
-        // cout << endl;
-    }
-
-    REP (i, N) c(ans[i + 1])
 }
 
 int main(){
-    long long N;
-    scanf("%lld",&N);
-    std::vector<long long> lx(N);
-    std::vector<long long> ly(N);
-    std::vector<long long> rx(N);
-    std::vector<long long> ry(N);
-    for(int i = 0 ; i < N ; i++){
-        scanf("%lld",&lx[i]);
-        scanf("%lld",&ly[i]);
-        scanf("%lld",&rx[i]);
-        scanf("%lld",&ry[i]);
-    }
-    solve(N, std::move(lx), std::move(ly), std::move(rx), std::move(ry));
+    long long H;
+    scanf("%lld",&H);
+    long long W;
+    scanf("%lld",&W);
+    solve(H, W);
     return 0;
 }
 
