@@ -3,35 +3,36 @@
 
 #include __FILE__ 
 
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
 
-{% if prediction_success %}
-void solve({{ formal_arguments }}) {
+void solve(long long N, std::vector<long long> A, std::vector<long long> B, std::vector<long long> C) {
 
 }
-{% endif %}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    long long N;
+    scanf("%lld",&N);
+    std::vector<long long> A(N);
+    for(int i = 0 ; i < N ; i++){
+        scanf("%lld",&A[i]);
+    }
+    std::vector<long long> B(N);
+    for(int i = 0 ; i < N ; i++){
+        scanf("%lld",&B[i]);
+    }
+    std::vector<long long> C(N);
+    for(int i = 0 ; i < N ; i++){
+        scanf("%lld",&C[i]);
+    }
+    solve(N, std::move(A), std::move(B), std::move(C));
     return 0;
 }
 
 #else  // INCLUDED_MAIN
 
 #include <bits/stdc++.h>
-// #include <boost/multiprecision/cpp_int.hpp>
+#include <boost/multiprecision/cpp_int.hpp>
 using namespace std;
-// namespace mp = boost::multiprecision;
+namespace mp = boost::multiprecision;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;

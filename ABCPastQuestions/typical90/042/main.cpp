@@ -3,26 +3,27 @@
 
 #include __FILE__ 
 
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
 
-{% if prediction_success %}
-void solve({{ formal_arguments }}) {
 
+void solve(long long K) {
+    if (K % 9 == 0) {
+        vector<mint> dp(K+1, 0);
+        dp[0] = 1;
+        for (int i = 0; i < K; i++) {
+            for (int j = 1; j <= 9; j++) {
+                if (i + j <= K) dp[i + j] += dp[i];
+            }
+        }
+        c(dp[K])
+    } else {
+        c(0)
+    }
 }
-{% endif %}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    long long K;
+    scanf("%lld",&K);
+    solve(K);
     return 0;
 }
 

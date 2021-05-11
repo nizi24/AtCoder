@@ -3,35 +3,28 @@
 
 #include __FILE__ 
 
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
 
-{% if prediction_success %}
-void solve({{ formal_arguments }}) {
+void solve(long long N, std::string S, std::string T) {
 
 }
-{% endif %}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    long long N;
+    scanf("%lld",&N);
+    std::string S;
+    std::cin >> S;
+    std::string T;
+    std::cin >> T;
+    solve(N, S, T);
     return 0;
 }
 
 #else  // INCLUDED_MAIN
 
 #include <bits/stdc++.h>
-// #include <boost/multiprecision/cpp_int.hpp>
+#include <boost/multiprecision/cpp_int.hpp>
 using namespace std;
-// namespace mp = boost::multiprecision;
+namespace mp = boost::multiprecision;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;

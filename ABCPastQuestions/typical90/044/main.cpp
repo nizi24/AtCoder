@@ -3,35 +3,38 @@
 
 #include __FILE__ 
 
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
 
-{% if prediction_success %}
-void solve({{ formal_arguments }}) {
+void solve(long long N, long long Q, std::vector<long long> A, std::vector<long long> T, std::vector<long long> x, std::vector<long long> y) {
 
 }
-{% endif %}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    long long N;
+    scanf("%lld",&N);
+    long long Q;
+    scanf("%lld",&Q);
+    std::vector<long long> A(N);
+    for(int i = 0 ; i < N ; i++){
+        scanf("%lld",&A[i]);
+    }
+    std::vector<long long> T(Q);
+    std::vector<long long> x(Q);
+    std::vector<long long> y(Q);
+    for(int i = 0 ; i < Q ; i++){
+        scanf("%lld",&T[i]);
+        scanf("%lld",&x[i]);
+        scanf("%lld",&y[i]);
+    }
+    solve(N, Q, std::move(A), std::move(T), std::move(x), std::move(y));
     return 0;
 }
 
 #else  // INCLUDED_MAIN
 
 #include <bits/stdc++.h>
-// #include <boost/multiprecision/cpp_int.hpp>
+#include <boost/multiprecision/cpp_int.hpp>
 using namespace std;
-// namespace mp = boost::multiprecision;
+namespace mp = boost::multiprecision;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;
