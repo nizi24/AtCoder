@@ -3,66 +3,41 @@
 
 #include __FILE__ 
 
-void dijkstra(Graph &G, vector<ll> &dist, int start) {
-    priority_queue<pair<ll, ll>, vector<pair<ll, ll>>, greater<pair<ll, ll>>> que;
-    dist[start] = 0;
-    que.push({0, start});
-    
-    while (!que.empty()) {
-        ll v = que.top().second;
-        ll d = que.top().first;
-        que.pop();
+const string YES = "Yes";
+const string NO = "No";
 
-        if (dist[v] < d) continue;
+void solve(std::vector<long long> A) {
+    map<ll, ll> cnt;
+    cnt[abs(A[0] - A[2])]++;
+    cnt[abs(A[1] - A[2])]++;
+    cnt[abs(A[0] - A[1])]++;
 
-        for (auto n : G[v]) {
-            if (chmin(dist[n.to], dist[v] + n.w)) {
-                que.push({dist[n.to], n.to});
-            }
+    for (auto m : cnt) {
+        if (m.second >= 2) {
+            c(YES)
+            return;
         }
     }
-}
 
-void solve(long long N, long long M, std::vector<long long> A, std::vector<long long> B, std::vector<long long> C) {
-    Graph G(N);
-    REP (i, M) {
-        G[A[i]-1].push_back(Edge(B[i]-1, C[i]));
-        G[B[i]-1].push_back(Edge(A[i]-1, C[i]));
-    }
+    c(NO)
 
-    vector<ll> dist(N, INF64);
-    dijkstra(G, dist, 0);
-
-    vector<ll> distN(N, INF64);
-    dijkstra(G, distN, N-1);
-
-    REP (i, N) {
-        c(dist[i] + distN[i])
-    }
-    
 }
 
 int main(){
-    long long N;
-    scanf("%lld",&N);
-    long long M;
-    scanf("%lld",&M);
-    std::vector<long long> A(M);
-    std::vector<long long> B(M);
-    std::vector<long long> C(M);
-    for(int i = 0 ; i < M ; i++){
+    std::vector<long long> A(3);
+    for(int i = 0 ; i < 3 ; i++){
         scanf("%lld",&A[i]);
-        scanf("%lld",&B[i]);
-        scanf("%lld",&C[i]);
     }
-    solve(N, M, std::move(A), std::move(B), std::move(C));
+    solve(std::move(A));
     return 0;
 }
 
 #else  // INCLUDED_MAIN
 
 #include <bits/stdc++.h>
+#include <boost/multiprecision/cpp_int.hpp>
 using namespace std;
+namespace mp = boost::multiprecision;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;

@@ -5,7 +5,15 @@
 
 
 void solve(long long N, std::vector<long long> A, std::vector<long long> B) {
+    ALL(sort, A);
+    ALL(sort, B);
 
+    ll ans = 0;
+    REP (i, N) {
+        ans += abs(A[i] - B[i]);
+    }
+
+    c(ans)
 }
 
 int main(){
