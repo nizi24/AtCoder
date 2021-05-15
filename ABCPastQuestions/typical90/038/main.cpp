@@ -4,26 +4,32 @@
 #include __FILE__ 
 
 
-void solve(long long H, long long W) {
-    ll ans = 0;
-    H = myceil(H, 2LL);
-    W = myceil(W, 2LL);
-    c(H * W)
+void solve(long long A, long long B) {
+    mp::int128_t a = A;
+    mp::int128_t b = B;
+    mp::int128_t tmp = lcm(a, b);
+    if (tmp > pw(10, 18)) {
+        c("Large")
+    } else {
+        c(lcm(A, B));
+    }
 }
 
 int main(){
-    long long H;
-    scanf("%lld",&H);
-    long long W;
-    scanf("%lld",&W);
-    solve(H, W);
+    long long A;
+    scanf("%lld",&A);
+    long long B;
+    scanf("%lld",&B);
+    solve(A, B);
     return 0;
 }
 
 #else  // INCLUDED_MAIN
 
 #include <bits/stdc++.h>
+#include <boost/multiprecision/cpp_int.hpp>
 using namespace std;
+namespace mp = boost::multiprecision;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;

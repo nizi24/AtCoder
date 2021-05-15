@@ -29,7 +29,9 @@ int main(){
 #else  // INCLUDED_MAIN
 
 #include <bits/stdc++.h>
+#include <boost/multiprecision/cpp_int.hpp>
 using namespace std;
+namespace mp = boost::multiprecision;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;

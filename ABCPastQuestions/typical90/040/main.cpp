@@ -4,19 +4,9 @@
 #include __FILE__ 
 
 
-void solve(long long H, long long W) {
-    ll ans = 0;
-    H = myceil(H, 2LL);
-    W = myceil(W, 2LL);
-    c(H * W)
-}
 
 int main(){
-    long long H;
-    scanf("%lld",&H);
-    long long W;
-    scanf("%lld",&W);
-    solve(H, W);
+    // Failed to predict input format
     return 0;
 }
 

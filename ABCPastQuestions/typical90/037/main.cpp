@@ -4,19 +4,24 @@
 #include __FILE__ 
 
 
-void solve(long long H, long long W) {
-    ll ans = 0;
-    H = myceil(H, 2LL);
-    W = myceil(W, 2LL);
-    c(H * W)
+void solve(long long W, long long N, std::vector<long long> L, std::vector<long long> R, std::vector<long long> V) {
+
 }
 
 int main(){
-    long long H;
-    scanf("%lld",&H);
     long long W;
     scanf("%lld",&W);
-    solve(H, W);
+    long long N;
+    scanf("%lld",&N);
+    std::vector<long long> L(N);
+    std::vector<long long> R(N);
+    std::vector<long long> V(N);
+    for(int i = 0 ; i < N ; i++){
+        scanf("%lld",&L[i]);
+        scanf("%lld",&R[i]);
+        scanf("%lld",&V[i]);
+    }
+    solve(W, N, std::move(L), std::move(R), std::move(V));
     return 0;
 }
 
