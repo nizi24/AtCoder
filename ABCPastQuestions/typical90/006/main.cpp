@@ -5,7 +5,33 @@
 
 
 void solve(long long N, long long K, std::string S) {
+    vector<vint> C(N+1, vector<ll>(26, -1));
 
+    for (int i = N - 1; i >= 0; i--) {
+        REP (j, 26) {
+            if (S[i] - 'a' == j) {
+                C[i][j] = i;
+            } else {
+                C[i][j] = C[i + 1][j];
+            }
+        }
+    }
+
+    string ans = "";
+    int pre = 0;
+    int sz = 0;
+    REP (i, K) {
+        REP (j, 26) {
+            if (C[pre][j] != -1 && C[pre][j] + K - sz <= N) {
+                ans.push_back('a' + j);
+                pre = C[pre][j] + 1;
+                sz++;
+                break;
+            }
+        }
+    }
+
+    c(ans)
 }
 
 int main(){
