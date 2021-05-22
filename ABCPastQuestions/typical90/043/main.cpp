@@ -3,19 +3,92 @@
 
 #include __FILE__ 
 
+vector<pair<ll, ll>> dir = {{0, 1}, {0, -1}, {1, 0}, {-1, 0}};
+ll H, W;
 
+void dfs(int y, int x, vector<string> &S, int direction, vector<vint> &dist) {
+    int ny = y + dir[direction].first;
+    int nx = x + dir[direction].second;
+
+    if (ny < H && nx < W && ny >= 0 && nx >= 0) {
+        if (dist[ny][nx] != INF64) return;
+        if (S[ny][nx] != '#') {
+            chmin(dist[ny][nx], dist[y][x]);
+            dfs(ny, nx, S, direction, dist);
+        }
+    }
+
+    REP (i, 4) {
+        int ny = y + dir[i].first;
+        int nx = x + dir[i].second;
+
+        if (ny < H && nx < W && ny >= 0 && nx >= 0) {
+            if (dist[ny][nx] != INF64) continue;
+            if (S[ny][nx] != '#') {
+                chmin(dist[ny][nx], dist[y][x] + 1);
+                dfs(ny, nx, S, i, dist);
+            }
+        }
+    }
+}
 
 int main(){
-    // Failed to predict input format
+    cin >> H >> W;
+    int sy, sx, gy, gx;
+    cin >> sy >> sx >> gy >> gx;
+    sy--; sx--; gy--; gx--;
+    vector<string> S(H+10);
+    REP (i, H) cin >> S[i];
+
+    vector<vector<vector<ll>>> dist(H+10, vector<vint>(W+10, vector<ll>(4, INF64)));
+    deque<pair<ll, tuple<ll, ll, ll>>> que;
+    REP (i, 4) {
+        dist[sy][sx][i] = 0;
+        que.push_back({0, {sy, sx, i}});
+    }
+
+    while (!que.empty()) {
+        int d, y, x, o;
+        d = que.front().first;
+        tie(y, x, o) = que.front().second;
+        que.pop_front();
+
+        // c(y << " " << x << " " << o)
+
+        REP (i, 4) {
+            int ny = y + dir[i].first;
+            int nx = x + dir[i].second;
+
+            if (ny < H && nx < W && ny >= 0 && nx >= 0) {
+                if (S[ny][nx] != '#') {
+                    if (i != o) {
+                        if (chmin(dist[ny][nx][i], dist[y][x][o] + 1)) {
+                            que.push_back({dist[ny][nx][i], {ny, nx, i}});
+                        }
+                    } else {
+                        if (chmin(dist[ny][nx][i], dist[y][x][o])) {
+                            que.push_front({dist[ny][nx][i], {ny, nx, i}});
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+    
+    ll mn = INF64;
+    REP (i, 4) chmin(mn, dist[gy][gx][i]);
+    c(mn)
+
     return 0;
 }
 
 #else  // INCLUDED_MAIN
 
 #include <bits/stdc++.h>
-#include <boost/multiprecision/cpp_int.hpp>
+// #include <boost/multiprecision/cpp_int.hpp>
 using namespace std;
-namespace mp = boost::multiprecision;
+// namespace mp = boost::multiprecision;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;
