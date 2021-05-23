@@ -5,7 +5,26 @@
 
 
 void solve(long long N, long long Q, std::vector<long long> A, std::vector<long long> T, std::vector<long long> x, std::vector<long long> y) {
+    ll times = 0;
+    REP (i, Q) {
+        if (T[i] == 1) {
+            ll a = x[i] - times - 1;
+            ll b = y[i] - times - 1;
+            a %= N;
+            b %= N;
+            if (a < 0) a += N;
+            if (b < 0) b += N;
 
+            swap(A[a], A[b]);
+        } else if (T[i] == 2) {
+            times++;
+        } else {
+            ll tmp = x[i] - times - 1;
+            tmp %= N;
+            if (tmp < 0) tmp += N;
+            c(A[tmp])
+        }
+    }
 }
 
 int main(){
@@ -32,9 +51,9 @@ int main(){
 #else  // INCLUDED_MAIN
 
 #include <bits/stdc++.h>
-#include <boost/multiprecision/cpp_int.hpp>
+// #include <boost/multiprecision/cpp_int.hpp>
 using namespace std;
-namespace mp = boost::multiprecision;
+// namespace mp = boost::multiprecision;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;
