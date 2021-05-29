@@ -5,7 +5,15 @@
 
 
 void solve(long long N, long long L) {
+    vector<mint> dp(N+1, 0);
+    dp[0] = 1;
+    REP (i, N) {
+        if (N >= i + L) dp[i + L] += dp[i];
+        
+        dp[i + 1] += dp[i];
+    }
 
+    c(dp[N])
 }
 
 int main(){
