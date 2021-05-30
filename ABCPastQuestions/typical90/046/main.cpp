@@ -5,6 +5,29 @@
 
 
 void solve(long long N, std::vector<long long> A, std::vector<long long> B, std::vector<long long> C) {
+    vint cntA(46, 0);
+    vint cntB(46, 0);
+    vint cntC(46, 0);
+
+    REP (i, N) {
+        cntA[A[i] % 46]++;
+        cntB[B[i] % 46]++;
+        cntC[C[i] % 46]++;
+    }
+
+    ll ans = 0;
+    REP (i, 46) {
+        REP (j, 46) {
+            REP (k, 46) {
+                if ((i + j + k) % 46 == 0) {
+                    ll cnt = cntA[i] * cntB[j] * cntC[k];
+                    ans += cnt;
+                }
+            }
+        }
+    }
+
+    c(ans)
 
 }
 
@@ -30,9 +53,9 @@ int main(){
 #else  // INCLUDED_MAIN
 
 #include <bits/stdc++.h>
-#include <boost/multiprecision/cpp_int.hpp>
+// #include <boost/multiprecision/cpp_int.hpp>
 using namespace std;
-namespace mp = boost::multiprecision;
+// namespace mp = boost::multiprecision;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;

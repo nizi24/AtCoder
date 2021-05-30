@@ -3,9 +3,31 @@
 
 #include __FILE__ 
 
+void dfs(int pos, int pre, vector<long long> &dp, vector<vector<long long>> &tree, long long &ans, long long N) {
+    dp[pos] = 1; // 自分
+
+    for (auto n : tree[pos]) {
+        if (n == pre) continue; // 逆流防止
+
+        dfs(n, pos, dp, tree, ans, N);
+        dp[pos] += dp[n]; // 子要素
+    }
+
+    ans += dp[pos] * (N - dp[pos]); // (自分 + 子要素) * それ以外の要素
+}
 
 void solve(long long N, std::vector<long long> a, std::vector<long long> b) {
+    vector<vector<ll>> tree(N);
+    REP (i, N-1) {
+        tree[a[i]-1].push_back(b[i]-1);
+        tree[b[i]-1].push_back(a[i]-1);
+    }
 
+    vector<ll> dp(N, 0);
+    ll ans = 0;
+    dfs(0, -1, dp, tree, ans, N);
+
+    c(ans)
 }
 
 int main(){
