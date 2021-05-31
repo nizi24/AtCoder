@@ -5,8 +5,24 @@
 
 
 void solve(long long N, long long K, std::vector<long long> A, std::vector<long long> B) {
+    REP (i, N) {
+        A[i] -= B[i];
+    }
 
-}
+    priority_queue<pair<ll, ll>> que;
+    REP (i, N) {
+        que.push({B[i], i});
+    }
+
+    ll ans = 0;
+    REP (i, K) {
+        ans += que.top().first;
+        if (que.top().second != -1) que.push({A[que.top().second], -1});
+        que.pop();
+    }
+
+    c(ans)
+ }
 
 int main(){
     long long N;
