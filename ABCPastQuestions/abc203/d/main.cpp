@@ -4,62 +4,59 @@
 #include __FILE__ 
 
 
-void solve(long long H, long long W, std::vector<std::vector<long long>> C) {
-    vector<vint> sum1(H, vector<ll>(W, 0)), sum2(H, vector<ll>(W, 0));
+void solve(long long N, long long K, std::vector<std::vector<long long>> A) {
+    ll median = floor(K * K / 2) + 1;
 
-    // 各行の累積和を取る
-    REP (i, H) {
-        REP (j, W) {
-            if (j > 0) {
-                sum1[i][j] += sum1[i][j - 1];
-                sum2[i][j] += sum2[i][j - 1];
-            }
+    ll ng = -1;
+    ll ok = INF64;
 
-            if (i % 2 == 0) {
-                if (j % 2 == 0) sum1[i][j] += C[i][j];
-                else sum2[i][j] += C[i][j];
-            } else {
-                if (j % 2 != 0) sum1[i][j] += C[i][j];
-                else sum2[i][j] += C[i][j];
-            }
-        }
-    }
+    while (abs(ng - ok) > 1) {
+        ll mid = (ng + ok) / 2;
 
-    // 各列の累積和を取る
-    REP (j, W) {
-        REP (i, H) {
-            if (i > 0) {
-                sum1[i][j] += sum1[i - 1][j];
-                sum2[i][j] += sum2[i - 1][j];
+        // 二次元累積和を取る
+        vector<vint> sum(N, vector<ll>(N, 0));
+
+        // 行に対して
+        REP (i, N) {
+            REP (j, N) {
+                if (j != 0) sum[i][j] += sum[i][j - 1];
+                if (mid < A[i][j]) sum[i][j]++;
             }
         }
-    }
+        // 列に対して
+        REP (i, N) REP (j, N) if (i != 0) sum[i][j] += sum[i - 1][j];
 
-    int ans = 0;
-    for (int i = 0; i < H; i++) for (int j = 0; j < W; j++) {
-        for (int k = i; k < H; k++) for (int l = j; l < W; l++) {
-            ll cur = sum[k][l];
-            if (i != 0) cur -= sum[i - 1][l];
-            if (j != 0) cur -= sum[k][j - 1];
+        // 答えをmid以下にできるかを判定する
+        bool good = 0;
+        REP (i, N - K + 1) REP (j, N - K + 1) {
+            ll cur = sum[i + K - 1][j + K - 1];
+            if (i != 0) cur -= sum[i - 1][j + K - 1];
+            if (j != 0) cur -= sum[i + K - 1][j - 1];
             if (i != 0 && j != 0) cur += sum[i - 1][j - 1];
+
+            if (cur < median) good = 1;
+            if (good) break;
         }
+
+        if (good) ok = mid;
+        else ng = mid;
     }
-    
-    c(ans)
+
+    c(ok)
 }
 
 int main(){
-    long long H;
-    scanf("%lld",&H);
-    long long W;
-    scanf("%lld",&W);
-    std::vector<std::vector<long long>> C(H, std::vector<long long>(W));
-    for(int i = 0 ; i < H ; i++){
-        for(int j = 0 ; j < W ; j++){
-            scanf("%lld",&C[i][j]);
+    long long N;
+    scanf("%lld",&N);
+    long long K;
+    scanf("%lld",&K);
+    std::vector<std::vector<long long>> A(N, std::vector<long long>(N));
+    for(int i = 0 ; i < N ; i++){
+        for(int j = 0 ; j < N ; j++){
+            scanf("%lld",&A[i][j]);
         }
     }
-    solve(H, W, std::move(C));
+    solve(N, K, std::move(A));
     return 0;
 }
 
