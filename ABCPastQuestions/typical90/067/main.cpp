@@ -4,13 +4,51 @@
 #include __FILE__ 
 
 
-void solve(long long N, long long K) {
+void solve(string N, long long K) {
+    if (N == "0") {
+        c(0)
+        return;
+    }
 
+    string str = N;
+    ll n = 0;
+    ll sz = str.size();
+    for (int j = 0; j < str.size(); j++) {
+        n += pw(8, sz - j - 1) * (str[j] - '0');
+    }
+
+    REP (i, K) {
+        // 9進数に変換
+        str = "";
+        while (n) {
+            str.push_back('0' + n%9);
+            n /= 9;
+        }
+        reverse(all(str));
+
+        REP (i, str.size()) {
+            if (str[i] == '8') str[i] = '5';
+        }
+
+        // 8進数(表記は10進数)に直す
+        ll sz = str.size();
+        for (int j = 0; j < str.size(); j++) {
+            n += pw(8, sz - j - 1) * (str[j] - '0');
+        }
+    }
+    
+    str = "";
+    while (n) {
+        str.push_back('0' + n%8);
+        n /= 8;
+    }
+    reverse(all(str));
+    c(str)
 }
 
 int main(){
-    long long N;
-    scanf("%lld",&N);
+    string N;
+    cin >> N;
     long long K;
     scanf("%lld",&K);
     solve(N, K);

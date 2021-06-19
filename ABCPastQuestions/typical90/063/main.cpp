@@ -5,7 +5,33 @@
 
 
 void solve(long long H, long long W, std::vector<std::vector<long long>> P) {
+    ll mx = 1;
+    for (int bit = 1; bit < (1<<H); bit++) {
+        ll sz = 0;
+        vector<ll> vec;
+        for (int i = 0; i < H; i++) {
+            if (bit & (1<<i)) {
+                vec.push_back(i);
+                sz++;
+            }
+        }
 
+        vector<ll> M(H * W+10, 0);
+        REP (i, W) {
+            map<ll, ll> mp;
+            ll tmp = 0;
+            REP (j, sz) {
+                mp[P[vec[j]][i]]++;
+                tmp = P[vec[j]][i];
+            }
+            if (mp.size() == 1) M[tmp] += sz;
+        }
+
+        sort(rall(M));
+        chmax(mx, M[0]);
+    }
+
+    c(mx)
 }
 
 int main(){
