@@ -5,7 +5,23 @@
 
 
 void solve(long long N, std::vector<long long> X, std::vector<long long> Y) {
+    ALL(sort, X); ALL(sort, Y);
 
+    ll midX = 0;
+    if (N % 2 == 0) midX = (X[N/2-1] + X[N/2]) / 2;
+    else midX = X[N/2];
+
+    ll ans = 0;
+    REP (i, N) ans += abs(X[i] - midX);
+
+    ll midY = 0;
+    if (N % 2 == 0) midY = (Y[N/2-1] + Y[N/2]) / 2;
+    else midY = Y[N/2];
+
+    REP (i, N) ans += abs(Y[i] - midY);
+
+    c(ans)
+    
 }
 
 int main(){
