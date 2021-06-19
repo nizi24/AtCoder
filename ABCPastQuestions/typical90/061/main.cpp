@@ -5,7 +5,16 @@
 
 
 void solve(long long Q, std::vector<long long> t, std::vector<long long> x) {
-
+    deque<ll> que;
+    REP (i, Q) {
+        if (t[i] == 1) {
+            que.push_front(x[i]);
+        } else if (t[i] == 2) {
+            que.push_back(x[i]);
+        } else {
+            c(que[x[i]-1]);
+        }
+    }
 }
 
 int main(){
