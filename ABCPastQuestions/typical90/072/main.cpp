@@ -42,7 +42,6 @@ int main(){
     }
 
     c((ans == 0 ? -1 : ans))
-
     
     return 0;
 }
