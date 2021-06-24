@@ -7,10 +7,49 @@ const string YES = "Yes";
 const string NO = "No";
 
 void solve(long long N, std::vector<long long> A) {
-    ll sum = 0;
-    REP (i, N) sum += A[i];
+    REP (i, N) {
+        A[i]*=10;
+        A.push_back(A[i]);
+    }
 
+    vector<ll> sum(N*2+1, 0);
     
+    for (int i = 1; i <= N*2; i++) {
+        sum[i] = sum[i-1] + A[i-1];
+    }
+
+    for (int left = 0; left <= N; left++) {
+        ll x = sum[left] + sum[N]/10;
+        auto iter = lower_bound(all(sum), x);
+        if (*iter == x) {
+            c(YES)
+            return;
+        }
+    }
+
+    c(NO)
+
+
+
+    // int right = 0;
+    // sum = 0;
+    // for (int left = 0; left < N; left++) {
+    //     while (sum + A[right] <= x) {
+    //         sum += A[right];
+    //         right++;
+    //         if (right >= N) right = 0;
+    //     }
+
+    //     if (sum == Q) {
+    //         c(YES)
+    //         return;
+    //     }
+
+    //     if (left == right) right++;
+    //     else sum -= A[left];
+    // }
+
+    // c(NO)
 }
 
 int main(){
