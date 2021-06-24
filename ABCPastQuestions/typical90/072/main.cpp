@@ -3,10 +3,47 @@
 
 #include __FILE__ 
 
+int H, W;
+vector<vector<int>> direction = {{-1, 0}, {0, 1}, {1, 0}, {0, -1}};
+void dfs(int y, int x, vector<vector<bool>> seen, int gy, int gx, int cnt, vector<string> &C, int &ans) {
+    seen[y][x] = true;
 
+    // 前後左右に移動
+    REP (i, 4) {
+        int ny = y + direction[i][0];
+        int nx = x + direction[i][1];
+
+        if (ny < 0 || ny >= H || nx < 0 || nx >= W) continue;
+
+        if (ny == gy && nx == gx) {
+            if (cnt >= 3) chmax(ans, cnt);
+            return;
+        }
+
+        if (C[ny][nx] == '.' && !seen[ny][nx]) {
+            dfs(ny, nx, seen, gy, gx, cnt+1, C, ans);
+        }
+    }
+}
 
 int main(){
-    // Failed to predict input format
+    cin >> H >> W;
+    vector<string> C(H);
+    REP (i, H) cin >> C[i];
+
+    int ans = 0;
+    REP (y, H) {
+        REP (x, W) {
+            if (C[y][x] == '#') continue;
+
+            vector<vector<bool>> seen(H, vector<bool>(W, false));
+            dfs(y, x, seen, y, x, 1, C, ans);
+        }
+    }
+
+    c((ans == 0 ? -1 : ans))
+
+    
     return 0;
 }
 
