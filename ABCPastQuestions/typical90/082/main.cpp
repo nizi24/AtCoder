@@ -5,7 +5,21 @@
 
 
 void solve(long long L, long long R) {
+    mint l = L, r = R;
+    mint ans = sum(r) - sum(l-1);
+    ll L_size = to_string(L).size();
+    ll R_size = to_string(R).size();
+    ans *= L_size;
 
+    for (int i = L_size; ; i++) {
+        if (pw(10, i) > R || i == 19) break;
+        else {
+            mint p = pw(10, i)-1;
+            ans += sum(r) - sum(p);
+        }
+    }
+
+    c(ans)
 }
 
 int main(){
