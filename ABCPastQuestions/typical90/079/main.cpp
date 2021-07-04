@@ -3,42 +3,31 @@
 
 #include __FILE__ 
 
-ll N;
-vector<vector<ll>> G(N+10);
+const string YES = "Yes";
+const string NO = "No";
 
-void dfs(int n, int p, vector<vector<mint>> &dp, vector<string> &C) {
+void solve(long long H, long long W, std::vector<std::vector<long long>> A, std::vector<std::vector<long long>> B) {
 
-    for (auto nx : G[n]) {
-        if (nx == p) continue;
-
-        dfs(nx, n, dp, AB, C);
-    }
-}
-
-void solve(long long N, std::vector<std::string> C, std::vector<long long> a, std::vector<long long> b) {
-    REP (i, N) {
-        G[a[i]].push_back(b[i]);
-        G[b[i]].push_back(a[i]);
-    }
-
-    vector<vector<mint>> dp(N+1, vector<mint>(3, 0));
-
-    dfs(1, 0, dp, C);
 }
 
 int main(){
-    scanf("%lld",&N);
-    std::vector<std::string> C(N);
-    for(int i = 0 ; i < N ; i++){
-        std::cin >> C[i];
+    long long H;
+    scanf("%lld",&H);
+    long long W;
+    scanf("%lld",&W);
+    std::vector<std::vector<long long>> A(H, std::vector<long long>(W));
+    for(int i = 0 ; i < H ; i++){
+        for(int j = 0 ; j < W ; j++){
+            scanf("%lld",&A[i][j]);
+        }
     }
-    std::vector<long long> a(N-1);
-    std::vector<long long> b(N-1);
-    for(int i = 0 ; i < N-1 ; i++){
-        scanf("%lld",&a[i]);
-        scanf("%lld",&b[i]);
+    std::vector<std::vector<long long>> B(H, std::vector<long long>(W));
+    for(int i = 0 ; i < H ; i++){
+        for(int j = 0 ; j < W ; j++){
+            scanf("%lld",&B[i][j]);
+        }
     }
-    solve(N, std::move(C), std::move(a), std::move(b));
+    solve(H, W, std::move(A), std::move(B));
     return 0;
 }
 

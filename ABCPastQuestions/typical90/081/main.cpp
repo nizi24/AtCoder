@@ -3,42 +3,23 @@
 
 #include __FILE__ 
 
-ll N;
-vector<vector<ll>> G(N+10);
 
-void dfs(int n, int p, vector<vector<mint>> &dp, vector<string> &C) {
+void solve(long long N, long long K, std::vector<long long> A, std::vector<long long> B) {
 
-    for (auto nx : G[n]) {
-        if (nx == p) continue;
-
-        dfs(nx, n, dp, AB, C);
-    }
-}
-
-void solve(long long N, std::vector<std::string> C, std::vector<long long> a, std::vector<long long> b) {
-    REP (i, N) {
-        G[a[i]].push_back(b[i]);
-        G[b[i]].push_back(a[i]);
-    }
-
-    vector<vector<mint>> dp(N+1, vector<mint>(3, 0));
-
-    dfs(1, 0, dp, C);
 }
 
 int main(){
+    long long N;
     scanf("%lld",&N);
-    std::vector<std::string> C(N);
+    long long K;
+    scanf("%lld",&K);
+    std::vector<long long> A(N);
+    std::vector<long long> B(N);
     for(int i = 0 ; i < N ; i++){
-        std::cin >> C[i];
+        scanf("%lld",&A[i]);
+        scanf("%lld",&B[i]);
     }
-    std::vector<long long> a(N-1);
-    std::vector<long long> b(N-1);
-    for(int i = 0 ; i < N-1 ; i++){
-        scanf("%lld",&a[i]);
-        scanf("%lld",&b[i]);
-    }
-    solve(N, std::move(C), std::move(a), std::move(b));
+    solve(N, K, std::move(A), std::move(B));
     return 0;
 }
 
