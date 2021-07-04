@@ -7,7 +7,31 @@ const string YES = "Yes";
 const string NO = "No";
 
 void solve(long long H, long long W, std::vector<std::vector<long long>> A, std::vector<std::vector<long long>> B) {
+    ll cnt = 0;
+    REP (i, H-1) {
+        REP (j, W-1) {
+            ll dif = B[i][j] - A[i][j];
+            A[i][j] = B[i][j];
+            if (dif) {
+                A[i + 1][j] += dif;
+                A[i][j + 1] += dif;
+                A[i + 1][j + 1] += dif;
+                cnt += abs(dif);
+            }
+        }
+    }
 
+    REP (i, H) {
+        REP (j, W) {
+            if (!(A[i][j] == B[i][j])) {
+                c(NO)
+                return;
+            }
+        }
+    }
+
+    c(YES)
+    c(cnt)
 }
 
 int main(){
