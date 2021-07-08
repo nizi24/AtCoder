@@ -3,49 +3,20 @@
 
 #include __FILE__ 
 
+const string YES = "Yes";
+const string NO = "No";
 
-void solve(long long N, long long K, std::vector<long long> A, std::vector<long long> B) {
-    vector<vint> XY(5010, vint(5010, 0));
-    REP (i, N) XY[A[i]][B[i]]++;
-
-    REP (i, 5000) {
-        REP (j, 5000) {
-            XY[i+1][j] += XY[i][j];
-        }
-    }
-
-    REP (i, 5000) {
-        REP (j, 5000) {
-            XY[i][j+1] += XY[i][j];
-        }
-    }
-
-
-    ll mx = 0;
-    REP (i, 5000 - K + 1) REP (j, 5000 - K + 1) {
-        ll cur = XY[i + K][j + K];
-        if (i != 0) cur -= XY[i - 1][j + K];
-        if (j != 0) cur -= XY[i + K][j - 1];
-        if (i != 0 && j != 0) cur += XY[i - 1][j - 1];
-
-        chmax(mx, cur);
-    }
-
-    c(mx)
+void solve(long long A, long long B) {
+    if (A * 6 < B || A > B) c(NO)
+    else c(YES)
 }
 
 int main(){
-    long long N;
-    scanf("%lld",&N);
-    long long K;
-    scanf("%lld",&K);
-    std::vector<long long> A(N);
-    std::vector<long long> B(N);
-    for(int i = 0 ; i < N ; i++){
-        scanf("%lld",&A[i]);
-        scanf("%lld",&B[i]);
-    }
-    solve(N, K, std::move(A), std::move(B));
+    long long A;
+    scanf("%lld",&A);
+    long long B;
+    scanf("%lld",&B);
+    solve(A, B);
     return 0;
 }
 
