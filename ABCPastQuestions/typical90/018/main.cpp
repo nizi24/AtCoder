@@ -3,9 +3,21 @@
 
 #include __FILE__ 
 
+#define PI 3.141592653589793
 
 void solve(long long T, long long L, long long X, long long Y, long long Q, std::vector<long long> E) {
+    REP (i, Q) {
+        long double angle = 270.0 - 360.0 * ((double)E[i] / T);
+        long double radian = angle * PI / 180.0;
+        long double y = cosl(radian) * (L/2.0);
+        long double z = sinl(radian) * (L/2.0) + (L/2.0);
 
+        long double tan_theta = z / (sqrt(pow(X, 2) + pow(Y-y, 2)));
+        long double radian_ans = atanl(tan_theta);
+        long double ans = radian_ans * 180 / PI;
+        
+        cf(ans)
+    }
 }
 
 int main(){
