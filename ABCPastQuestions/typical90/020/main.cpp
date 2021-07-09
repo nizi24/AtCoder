@@ -7,7 +7,8 @@ const string YES = "Yes";
 const string NO = "No";
 
 void solve(long long a, long long b, long long c) {
-
+    if (a < pw(c, b)) cout << YES << endl;
+    else cout << NO << endl;
 }
 
 int main(){
@@ -25,7 +26,6 @@ int main(){
 
 #include <bits/stdc++.h>
 using namespace std;
-using i64 = int64_t;
 using ll = long long;
 using lint = long long;
 typedef vector<long long> vint;

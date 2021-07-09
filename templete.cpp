@@ -29,9 +29,7 @@ int main(){
 #else  // INCLUDED_MAIN
 
 #include <bits/stdc++.h>
-// #include <boost/multiprecision/cpp_int.hpp>
 using namespace std;
-// namespace mp = boost::multiprecision;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;
@@ -55,6 +53,18 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 ll pw(ll x, ll n){ll ret=1;while(n>0){if(n&1){ret*=x;}x *= x;n >>= 1;}return ret;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
+
+
+// 多倍長テンプレ
+/* ---------------------- ここから ---------------------- */
+// #include <boost/multiprecision/cpp_dec_float.hpp>
+// #include <boost/multiprecision/cpp_int.hpp>
+// namespace mp = boost::multiprecision;
+// // 任意長整数型
+// using Bint = mp::cpp_int;
+// // 仮数部が10進数で1024桁の浮動小数点数型(TLEしたら小さくする)
+// using Real = mp::number<mp::cpp_dec_float<1024>>;
+/* ---------------------- ここまで ---------------------- */
 
 // modint: mod 計算を int を扱うように扱える構造体
 template<int MOD> struct Fp {
