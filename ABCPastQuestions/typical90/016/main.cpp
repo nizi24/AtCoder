@@ -3,19 +3,27 @@
 
 #include __FILE__ 
 
-
 void solve(long long N, long long A, long long B, long long C) {
+    ll mn = 10000;
 
+    for (int i = 0; i < 10000; i++) {
+        for (int j = 0; j < 10000; j++) {
+            if (i + j >= 10000 || A*i + B*j > N) break;
+
+            ll coin = N - (A*i + B*j);
+            if (!coin) chmin(mn, (ll)i + j);
+            else if (coin % C == 0 && coin / C <= 9999-i-j) chmin(mn, i+j+coin/C);
+        }
+    }
+
+    c(mn)
 }
 
 int main(){
-    long long N;
+    long long N, A, B, C, D;
     scanf("%lld",&N);
-    long long A;
     scanf("%lld",&A);
-    long long B;
     scanf("%lld",&B);
-    long long C;
     scanf("%lld",&C);
     solve(N, A, B, C);
     return 0;
