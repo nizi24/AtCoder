@@ -5,7 +5,31 @@
 
 
 void solve(long long K) {
+    vector<ll> div;
 
+    for (ll i = 1; i * i <= K; i++) {
+        if (K % i == 0) {
+            div.push_back(i);
+            if (K/i != i) div.push_back(K/i);
+        }
+    }
+
+    ll sz = div.size();
+    set<vector<ll>> st;
+    REP (i, sz) {
+        REP (j, sz) {
+            ll k = K/div[i]/div[j];
+
+            if (div[i] * div[j] * k == K) {
+                vector<ll> vec = {div[i], div[j], k};
+                sort(all(vec));
+
+                st.insert(vec);
+            }
+        }
+    }
+
+    c(st.size())
 }
 
 int main(){
