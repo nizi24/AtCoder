@@ -5,7 +5,19 @@
 
 
 void solve(long long N, std::vector<long long> C, std::vector<long long> P, long long Q, std::vector<long long> L, std::vector<long long> R) {
+    vector<ll> a(N+1, 0), b(N+1, 0);
 
+    REP (i, N) {
+        if (C[i] == 1) a[i + 1] = P[i];
+        else b[i + 1] = P[i];
+
+        a[i + 1] += a[i];
+        b[i + 1] += b[i];
+    }
+
+    REP (i, Q) {
+        c(a[R[i]]-a[L[i]-1] << " " << b[R[i]]-b[L[i]-1])
+    }
 }
 
 int main(){
