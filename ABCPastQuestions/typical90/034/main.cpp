@@ -5,7 +5,27 @@
 
 
 void solve(long long N, long long K, std::vector<long long> a) {
+    ll ans = 0;
 
+    // しゃくとり法
+    map<ll, ll> mp;
+    ll right = 0;
+    for (int left = 0; left < N; left++) {
+        while (right < N && (mp.size() < K || (mp.size() == K && mp.count(a[right])) ) ) {
+            mp[a[right]]++;
+            right++;
+        }
+
+        chmax(ans, right-left);
+
+        if (right == left) right++;
+        else {
+            mp[a[left]]--;
+            if (!mp[a[left]]) mp.erase(a[left]);
+        }
+    }
+
+    c(ans)
 }
 
 int main(){
