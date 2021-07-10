@@ -7,7 +7,13 @@ const string YES = "Yes";
 const string NO = "No";
 
 void solve(long long N, long long K, std::vector<long long> A, std::vector<long long> B) {
+    ll dif = 0;
+    REP (i, N) dif += abs(A[i]-B[i]);
 
+    K -= dif;
+
+    if (K < 0 || K % 2 == 1) c(NO)
+    else c(YES)
 }
 
 int main(){
