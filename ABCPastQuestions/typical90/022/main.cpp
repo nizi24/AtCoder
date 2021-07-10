@@ -5,7 +5,13 @@
 
 
 void solve(long long A, long long B, long long C) {
+    ll GCD = gcd(A, gcd(B, C));
 
+    ll ans = A / GCD - 1;
+    ans += B/GCD-1;
+    ans += C/GCD-1;
+
+    c(ans)
 }
 
 int main(){

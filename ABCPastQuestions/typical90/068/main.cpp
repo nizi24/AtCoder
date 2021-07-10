@@ -5,7 +5,14 @@
 
 
 void solve(long long N, long long Q, std::vector<long long> T, std::vector<long long> X, std::vector<long long> Y, std::vector<long long> V) {
+    vector<ll> q(N-1, -1);
 
+    REP (i, Q) {
+        if (!T[i]) q[X[i]-1] = V[i];
+        else {
+            
+        }
+    }
 }
 
 int main(){
