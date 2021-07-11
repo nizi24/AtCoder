@@ -5,12 +5,35 @@
 
 
 void solve(long long N, long long Q, std::vector<long long> T, std::vector<long long> X, std::vector<long long> Y, std::vector<long long> V) {
-    vector<ll> q(N-1, -1);
+    UnionFind Uf(N);
+
+    vector<ll> ans(Q, -2);
+    vector<ll> relation(N, 0);
+    REP (i, Q) {
+        if (T[i] == 0) {
+            Uf.unite(X[i]-1, Y[i]-1);
+            relation[X[i]-1] = V[i];
+        } else {
+            if (!Uf.issame(X[i]-1, Y[i]-1)) ans[i] = -1;
+        }
+    }
+
+    vector<ll> vec(N, 0);
+    REP (i, N-1) {
+        vec[i + 1] = relation[i] - vec[i];
+    }
 
     REP (i, Q) {
-        if (!T[i]) q[X[i]-1] = V[i];
-        else {
-            
+        if (ans[i] == -1) c("Ambiguous")
+        else if (T[i] == 1) {
+            ll dif = abs(V[i]-vec[X[i]-1]);
+            if (abs(Y[i]-X[i]) % 2 == 0) {
+                if (vec[X[i]-1] >= V[i]) c(vec[Y[i]-1] - dif)
+                else c(vec[Y[i]-1] + dif)
+            } else {
+                if (vec[X[i]-1] <= V[i]) c(vec[Y[i]-1] - dif)
+                else c(vec[Y[i]-1] + dif)
+            }
         }
     }
 }
