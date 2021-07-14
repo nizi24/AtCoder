@@ -32,10 +32,12 @@ struct RSQ_SegTree {
     void find(int s, int t, long long &ans) { find_query(s, t, 0, n, 0, ans); }
 
     void find_query(int s, int t, int l, int r, int n, long long &ans) {
+        // cout << s << t << l << r << " " << n << " " << ans << endl;
         if (r <= s || t <= l) return; // 範囲外なら終了
         // [s, t)が[l, r)を内包しているとき
         else if (s <= l && t >= r) ans += node[n];
         else {
+            // (r+l)/2は区間の中心, 区間の中心を左端にするか、右端にするかで分岐する
             find_query(s, t, l, (r+l)/2, n*2+1, ans); // 左下の子を探索
             find_query(s, t, (r+l)/2, r, n*2+2, ans);  // 右下の子を探索
         }
@@ -57,13 +59,13 @@ int main() {
     for (int i = 0; i < q; i++) {
         int com, x, y;
         cin >> com >> x >> y;
-        if (com == 0) segtree.update(x, y);
+        if (com == 0) segtree.update(x-1, y); //0-indexに変換して呼び出し
         else {
             long long ans = 0;
-            segtree.find(x, y+1, ans); // 半開区間に変換して呼び出し
+            segtree.find(x-1, y, ans); // 0-index, 半開区間に変換して呼び出し
             cout << ans << endl;
         }
     }
 
-    segtree.output();
+    // segtree.output();
 }
