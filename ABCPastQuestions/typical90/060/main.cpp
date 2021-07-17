@@ -5,6 +5,39 @@
 
 
 void solve(long long N, std::vector<long long> A) {
+    vector<int> dpL(N+1, INF), dpR(N+1, INF);
+    vector<int> l(N+1, 1), r(N+1, 1);
+    dpL[0] = 0; dpR[0] = 0;
+    dpL[1] = A[0]; dpR[1] = A[N-1];
+    int endL = 1, endR = 1;
+
+    for (int i = 1; i < N; i++) {
+        if (dpL[endL] < A[i]) {
+            endL++;
+            dpL[endL] = A[i];
+            l[i] = endL;
+        } else {
+            auto iter = lower_bound(all(dpL), A[i]) - dpL.begin();
+            dpL[iter] = A[i];
+            l[i] = iter;
+        }
+
+        if (dpR[endR] < A[N-1-i]) {
+            endR++;
+            dpR[endR] = A[N-1-i];
+            r[N-1-i] = endR;
+        } else {
+            auto iter = lower_bound(all(dpR), A[N-1-i]) - dpR.begin();
+            dpR[iter] = A[N-1-i];
+            r[N-1-i] = iter;
+        }
+    }
+
+    int ans = 0;
+    REP (i, N) {
+        chmax(ans, l[i]+r[i]-1);
+    }
+    c(ans)
 
 }
 
