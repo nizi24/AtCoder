@@ -26,16 +26,11 @@ bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!
 
 
 void solve(long long N, std::vector<long long> A){
-	map<ll, ll> Ai;
-	for (int i = 0; i < N; i++) {
-		Ai[i + A[i]]++;
-	}
+	map<ll, ll> mpi, mpj;
+	REP (i, N) mpj[i-A[i]]++;
 
 	ll ans = 0;
-	REP (i, N) {
-		ans += Ai[i - A[i]];
-	}
-
+	REP (i, N) ans += mpj[i+A[i]];
 	c(ans)
 }
 
