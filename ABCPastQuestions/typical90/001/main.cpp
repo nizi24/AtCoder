@@ -5,7 +5,28 @@
 
 
 void solve(long long N, long long L, long long K, std::vector<long long> A) {
+    A.push_back(L);
     
+    ll ok = 0;
+    ll ng = L;
+    while (abs(ok - ng) > 1) {
+        ll mid = (ok + ng) / 2;
+        ll cnt = 0;
+        ll sm = A[0];
+        REP (i, N) {
+            if (sm >= mid) {
+                cnt++;
+                sm = 0;
+            }
+            sm += A[i + 1] - A[i];
+        }
+        if (sm >= mid) cnt++;
+
+        if (cnt >= K+1) ok = mid;
+        else ng = mid;
+    }
+
+    c(ok)
 }
 
 int main(){
