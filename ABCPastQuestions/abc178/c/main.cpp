@@ -33,8 +33,9 @@ long long modPow(long long a, long long N) {
 }
 
 void solve(long long N){
-	long long ans = (modPow(10, N) - modPow(9, N) - modPow(9, N) + modPow(8, N)) % MOD;
-	ans = (ans + MOD) % MOD;
+	long long ans = modPow(10, N) - modPow(9, N) - modPow(9, N) + modPow(8, N);
+	ans %= MOD;
+	ans = (ans+MOD) % MOD;
 	cout << ans << endl;
 }
 
