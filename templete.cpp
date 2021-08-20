@@ -35,6 +35,7 @@ using ll = long long;
 using lint = long long;
 typedef vector<long long> vint;
 typedef pair<long long, long long> pint;
+#define int ll
 #define INF INT32_MAX / 2
 #define INF64 INT64_MAX / 2
 #define EPS 0.001
@@ -43,7 +44,6 @@ typedef pair<long long, long long> pint;
 #define all(x) (x).begin(),(x).end()
 #define rall(x) (x).rbegin(),(x).rend()
 #define ALL(f,c,...) (([&](decltype((c)) cccc) { return (f)(std::begin(cccc), std::end(cccc), ## __VA_ARGS__); })(c))
-#define c(n) cout<<n<<endl;
 #define cf(n) cout<<fixed<<setprecision(15)<<n<<endl;
 template <class T>inline bool chmin(T&a,T b) {if(a>b){a=b;return true;}return false;}
 template <class T>inline bool chmax(T&a,T b) {if(a<b){a=b;return true;}return false;}
@@ -53,6 +53,20 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 ll pw(ll x, ll n){ll ret=1;while(n>0){if(n&1){ret*=x;}x *= x;n >>= 1;}return ret;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
+
+// 可変長出力
+void _c() { cout << '\n'; }
+template <class T, class... U>
+void _c(T &&x, U &&...y) {
+  cout << ' ' << x;
+  _c(forward<U>(y)...);
+}
+void c() { _c(); };
+template <class T, class... U>
+void c(T &&x, U &&...y) {
+  cout << x;
+  _c(forward<U>(y)...);
+}
 
 
 // 多倍長テンプレ

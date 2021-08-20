@@ -3,7 +3,6 @@
 
 #include __FILE__ 
 
-
 void solve(long long N, long long K, std::vector<std::string> c, std::vector<long long> k) {
     vector<pair<int, int>> vec(N, {-1, -1});
     int lcnt = 0;
@@ -62,7 +61,6 @@ typedef pair<long long, long long> pint;
 #define all(x) (x).begin(),(x).end()
 #define rall(x) (x).rbegin(),(x).rend()
 #define ALL(f,c,...) (([&](decltype((c)) cccc) { return (f)(std::begin(cccc), std::end(cccc), ## __VA_ARGS__); })(c))
-#define c(n) cout<<n<<endl;
 #define cf(n) cout<<fixed<<setprecision(15)<<n<<endl;
 template <class T>inline bool chmin(T&a,T b) {if(a>b){a=b;return true;}return false;}
 template <class T>inline bool chmax(T&a,T b) {if(a<b){a=b;return true;}return false;}
@@ -72,7 +70,6 @@ bool is_prime(ll N){if(N<=1)return false;for(ll i=2;i*i<=N;i++){if(N%i==0) retur
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 ll pw(ll x, ll n){ll ret=1;while(n>0){if(n&1){ret*=x;}x *= x;n >>= 1;}return ret;}
 bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!=a);}
-
 
 // 多倍長テンプレ
 /* ---------------------- ここから ---------------------- */
