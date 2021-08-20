@@ -61,9 +61,9 @@ void _c(T &&x, U &&...y) {
   cout << ' ' << x;
   _c(forward<U>(y)...);
 }
-void C() { _c(); };
+void c() { _c(); };
 template <class T, class... U>
-void C(T &&x, U &&...y) {
+void c(T &&x, U &&...y) {
   cout << x;
   _c(forward<U>(y)...);
 }
