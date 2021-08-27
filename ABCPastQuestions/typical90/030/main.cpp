@@ -3,15 +3,27 @@
 
 #include __FILE__ 
 
-
 void solve(long long N, long long K) {
+    if (K == 1) {
+        c(N-1)
+        return;
+    }
 
+    vector<int> fac(N, 0);
+    int ans = 0;
+    for (int i = 2; i <= N; i++) {
+        if (fac[i] >= K) ans++;
+        if (fac[i]) continue;
+
+        for (int j = i; j <= N; j += i) fac[j]++;
+    }
+
+    c(ans)
 }
 
 int main(){
-    long long N;
+    ll N, K;
     scanf("%lld",&N);
-    long long K;
     scanf("%lld",&K);
     solve(N, K);
     return 0;
