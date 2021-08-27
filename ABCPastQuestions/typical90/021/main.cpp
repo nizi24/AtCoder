@@ -3,9 +3,57 @@
 
 #include __FILE__ 
 
+int num = 1;
+void dfs1(int n, vector<vint> &G, vector<int> &cnt, vector<int> &seen) {
+    seen[n] = 1; 
+
+    for (auto t : G[n]) if (!seen[t]) dfs1(t, G, cnt, seen);
+
+    cnt[n] = num;
+    num++;
+}
+
+void dfs2(int n, vector<vint> &G, vector<int> &seen, vector<int> &v) {
+    seen[n] = 1;
+    v.push_back(n);
+    
+    for (auto t : G[n]) if (!seen[t]) dfs2(t, G, seen, v);
+}
 
 void solve(long long N, long long M, std::vector<long long> A, std::vector<long long> B) {
+    // GR: 逆辺にしたグラフ
+    vector<vector<long long>> G(N), GR(N);
+    for (int i = 0; i < M; i++) {
+        G[A[i]-1].push_back(B[i]-1);
+        GR[B[i]-1].push_back(A[i]-1);
 
+    }
+    
+    vector<int> cnt(N), seen(N, 0);
+    REP (i, N) {
+        if (seen[i]) continue;
+
+        dfs1(i, G, cnt, seen);
+    }
+
+    vector<pair<int, int>> vec;
+    REP (i, N) vec.push_back({cnt[i], i});
+    sort(rall(vec));
+
+    seen.assign(N, 0);
+    vector<vector<int>> dec;
+    REP (i, N) {
+        if (seen[vec[i].second]) continue;
+
+        vector<int> v;
+        dfs2(vec[i].second, GR, seen, v);
+        dec.push_back(v);
+    }
+
+    ll ans = 0;
+    REP (i, dec.size()) ans += dec[i].size() * (dec[i].size()-1) / 2;
+    
+    c(ans)
 }
 
 int main(){
