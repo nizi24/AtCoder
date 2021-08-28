@@ -3,18 +3,60 @@
 
 #include __FILE__ 
 
+void solve(ll N, ll K, ll P, std::vector<long long> A) {
+    // 半分に分割
+    vector<ll> A1, A2;
+    REP (i, N) {
+        if (i < N/2) A1.push_back(A[i]);
+        else A2.push_back(A[i]);
+    }
 
-void solve(long long N, long long K, long long P, std::vector<long long> A) {
+    // 選んだ個数ごとに格納
+    vector<vector<ll>> sm1(K+1), sm2(K+1);
+    
+    // 前半列挙
+    for (int bit = 0; bit < (1<<(N/2)); bit++) {
+        ll cur = 0;
+        int cnt = 0;
+        for (int i = 0; i < N/2; i++) {
+            if (bit & (1<<i)) {
+                cnt++;
+                cur += A1[i];
+            }
+        }
 
+        if (cnt <= K) sm1[cnt].push_back(cur);
+    }
+
+    // 後半列挙
+    for (int bit = 0; bit < (1<<myceil(N, 2LL)); bit++) {
+        ll cur = 0;
+        int cnt = 0;
+        for (int i = 0; i < myceil(N, 2LL); i++) {
+            if (bit & (1<<i)) {
+                cnt++;
+                cur += A2[i];
+            }
+        }
+
+        if (cnt <= K) sm2[cnt].push_back(cur);
+    }
+
+    // 二分探索
+    ll ans = 0;
+    for (int i = 0; i <= K; i++) {
+        ALL(sort, sm2[K-i]);
+        REP (j, sm1[i].size()) {
+            ans += upper_bound(all(sm2[K-i]), P-sm1[i][j]) - sm2[K-i].begin();
+        }
+    }
+
+    c(ans)
 }
 
 int main(){
-    long long N;
-    scanf("%lld",&N);
-    long long K;
-    scanf("%lld",&K);
-    long long P;
-    scanf("%lld",&P);
+    ll N, K, P;
+    cin >> N >> K >> P;
     std::vector<long long> A(N);
     for(int i = 0 ; i < N ; i++){
         scanf("%lld",&A[i]);
