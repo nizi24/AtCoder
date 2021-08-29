@@ -3,9 +3,74 @@
 
 #include __FILE__ 
 
+struct RMQ_SegTree {
+    int n; // 葉の数
+    vector<long long> node; // 完全2分木
+
+    // 初期化
+    RMQ_SegTree(vector<long long> v) {
+        int sz = v.size();
+        n = 1;
+        while (n < sz) n *= 2; // 与えられた数列の項数以上の2^n個、葉を作る
+        node.resize(n*2-1, 0); // 0で初期化
+
+        for (int i = 0; i < sz; i++) node[n-1+i] = v[i]; // 葉を初期化
+        // 下から順に葉以外のnodeを初期化
+        for (int i = n-2; i >= 0; i--) node[i] = max(node[i*2+1], node[i*2+2]);
+}
+
+    // 更新
+    void update(int i, long long x) { // iは数列の添字(0-index), xは更新後の値
+        i += n-1; // 葉はn-1から始まる
+        chmax(node[i], x); // 葉を更新
+        while (i > 0) { // 親に更新を伝搬
+            i = (i-1)/2; // 親の添字
+            node[i] = max(node[i*2+1], node[i*2+2]); // 左の子: i*2+1, 右の子: i*2+2
+        }
+    }
+
+    // クエリ処理
+    // [s, t)を探索
+    // 再帰的に探索するために呼び出す側を別の関数に
+    void find(int s, int t, long long &ans) { find_query(s, t, 0, n, 0, ans); }
+
+    // 数直線を書いてシミレーションしてみるとイメージしやすい 
+    void find_query(int s, int t, int l, int r, int n, long long &ans) {
+        if (r <= s || t <= l) return; // 範囲外なら終了
+        // [s, t)が[l, r)を内包しているとき
+        else if (s <= l && t >= r) ans = max(ans, node[n]);
+        else {
+            // (r+l)/2は区間の中心, 区間の中心を左端にするか、右端にするかで分岐する
+            find_query(s, t, l, (r+l)/2, n*2+1, ans); // 左下の子を探索
+            find_query(s, t, (r+l)/2, r, n*2+2, ans);  // 右下の子を探索
+        }
+    }
+
+    // デバック用
+    void output() {
+        for (int i = 0; i < n*2-1; i++) cout << node[i] << " ";
+    }
+
+};
 
 void solve(long long W, long long N, std::vector<long long> L, std::vector<long long> R, std::vector<long long> V) {
+    vector<ll> seg(W+1, 0);
+    auto segtree = RMQ_SegTree(seg);
 
+    REP (i, N) {
+        for (int j = W; j >= 0; j--) {
+            ll ans = 0;
+            if (j-L[i] >= 0) {
+                segtree.find(max(0LL, j-R[i]), j-L[i]+1, ans);
+                if (ans || j - R[i] <= 0) segtree.update(j, ans+V[i]);
+            }
+        }
+    }
+
+    ll ans = 0;
+    segtree.find(W, W+1, ans);
+    c((ans == 0 ? -1 : ans))
+    
 }
 
 int main(){
