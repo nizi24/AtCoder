@@ -5,6 +5,20 @@
 
 
 void solve(long long N, long long Q, std::vector<long long> x, std::vector<long long> y, std::vector<long long> q) {
+    vector<pair<ll, ll>> dist1(N), dist2(N);
+    REP (i, N) {
+        dist1[i] = {x[i] + y[i], i};
+        dist2[i] = {x[i] - y[i], i};
+    }
+    ALL(sort, dist1);
+    ALL(sort, dist2);
+
+    REP (j, Q) {
+        int i = q[j]-1;
+        ll mx = max(abs(x[i] + y[i] - dist1[0].first), abs(x[i] - y[i] - dist2[0].first));
+        chmax(mx, max(abs(x[i] + y[i] - dist1[N-1].first), abs(x[i] - y[i] - dist2[N-1].first)));
+        c(mx)
+    }
 
 }
 
