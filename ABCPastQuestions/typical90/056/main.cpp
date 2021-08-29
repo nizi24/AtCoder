@@ -6,7 +6,34 @@
 const string NO = "Impossible";
 
 void solve(long long N, long long S, std::vector<long long> A, std::vector<long long> B) {
+    vector<vector<int>> dp(N+1, vector<int>(S+1, 0));
+    dp[0][0] = 1;
 
+    REP (i, N) {
+        REP (j, S+1) {
+            if (j + A[i] <= S && dp[i][j]) dp[i + 1][j + A[i]] = 1;
+            if (j + B[i] <= S && dp[i][j]) dp[i + 1][j + B[i]] = 2;
+        }
+    }
+
+    string ans = "";
+    for (int i = N; i > 0; i--) {
+        if (!dp[i][S]) {
+            c(NO)
+            return;
+        }
+
+        if (dp[i][S] == 1) {
+            ans.push_back('A');
+            S -= A[i-1];
+        } else {
+            ans.push_back('B');
+            S -= B[i-1];
+        }
+    }
+
+    ALL(reverse, ans);
+    c(ans)
 }
 
 int main(){
