@@ -5,7 +5,28 @@
 
 
 void solve(long long N, long long Q, std::vector<long long> x, std::vector<long long> y, std::vector<long long> z, std::vector<long long> w) {
+    mint ans = 1;
+    for (ll i = 0; i < 60; i++) {
+        int cnt = 0;
+        for (int bit = 0; bit < (1<<N); bit++) {
+            vector<bool> S(N, 0);
+            for (int j = 0; j < N; j++) {
+                if (bit & (1<<j)) {
+                    S[j] = 1;
+                }
+            }
 
+            bool flag = 1;
+            REP (j, Q) {
+                int b = S[x[j]-1] || S[y[j]-1] || S[z[j]-1];
+                if (flag) flag = (b && ((1LL << i) & w[j])) || (b == ((1LL << i) & w[j]));
+            }
+            if (flag) cnt++;
+        }
+        ans *= cnt;
+    }
+
+    c(ans)
 }
 
 int main(){
