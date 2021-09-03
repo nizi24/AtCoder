@@ -3,13 +3,23 @@
 
 #include __FILE__ 
 
+long long N;
+void solve(std::vector<long long> L, std::vector<long long> R) {
+    
+    double ans = 0;
+    REP (i, N) {
+        for (ll x = L[i]; x <= R[i]; x++) {
+            for (int j = i + 1; j < N; j++) {
+                double comb = (R[i]-L[i]+1) * (R[j]-L[j]+1);
+                ans += max(0LL, min(x, R[j]+1) - L[j]) / comb;
+            }
+        }
+    }
 
-void solve(long long N, std::vector<long long> L, std::vector<long long> R) {
-
+    cf(ans)
 }
 
 int main(){
-    long long N;
     scanf("%lld",&N);
     std::vector<long long> L(N);
     std::vector<long long> R(N);
@@ -17,7 +27,7 @@ int main(){
         scanf("%lld",&L[i]);
         scanf("%lld",&R[i]);
     }
-    solve(N, std::move(L), std::move(R));
+    solve(std::move(L), std::move(R));
     return 0;
 }
 
