@@ -35,7 +35,6 @@ using ll = long long;
 using lint = long long;
 typedef vector<long long> vint;
 typedef pair<long long, long long> pint;
-#define int ll
 #define INF INT32_MAX / 2
 #define INF64 INT64_MAX / 2
 #define EPS 0.001

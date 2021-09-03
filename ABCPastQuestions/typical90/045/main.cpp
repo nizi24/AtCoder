@@ -5,7 +5,7 @@
 
 
 void solve(long long N, long long K, std::vector<long long> X, std::vector<long long> Y) {
-
+    
 }
 
 int main(){
@@ -26,9 +26,7 @@ int main(){
 #else  // INCLUDED_MAIN
 
 #include <bits/stdc++.h>
-#include <boost/multiprecision/cpp_int.hpp>
 using namespace std;
-namespace mp = boost::multiprecision;
 using i64 = int64_t;
 using ll = long long;
 using lint = long long;
