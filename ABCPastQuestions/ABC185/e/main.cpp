@@ -50,6 +50,14 @@ int main(){
         }
     }
 
+    c("-------------------------")
+    REP (i, N+1) {
+        REP (j, M+1) {
+            cout << dp[i][j] << " ";
+        }
+        cout << endl;
+    }
+
     c(dp[N][M])
 
     return 0;
