@@ -10,30 +10,28 @@ int main(){
     cin >> Q;
     
     queue<ll> que;
-    multiset<ll> st;
-    ll cnt = 0;
+    // 降順にしておくこと
+    priority_queue<ll, vector<ll>, greater<ll>> heapq;
     REP (i, Q) {
         ll t;
         cin >> t;
-        if (t == 1) {
+        if (t == 1) { // クエリ1
             ll x;
             cin >> x;
             que.push(x);
-        } else if (t == 2) {
-            if (cnt) {
-                c(*st.begin());
-                st.erase(st.begin());
-                cnt--;
+        } else if (t == 2) { // クエリ2
+            if (!heapq.empty()) {
+                c(heapq.top()); // priority_queueで最小の数を出力
+                heapq.pop();
             } else {
                 c(que.front());
                 que.pop();
             }
-        } else {
+        } else { // クエリ3
             while (!que.empty()) {
-                st.insert(que.front());
+                // priority_queueからqueueに移し替え
+                heapq.push(que.front());
                 que.pop();
-
-                cnt++;
             }
         }
     }
