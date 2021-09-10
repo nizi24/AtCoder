@@ -197,7 +197,7 @@ struct Edge {
 
 using Graph = vector<vector<Edge>>;
 
-// UnionFied構造体
+// UnionFind構造体
 struct UnionFind {
     vector<long long> par, siz;
 
