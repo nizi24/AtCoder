@@ -25,15 +25,18 @@ bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!
 
 
 void solve(long long H, long long N, std::vector<long long> A, std::vector<long long> B){
-    vector<vector<ll>> dp(N+10, vector<ll>(H+10, INF));
-    dp[0][0] = 0;
+    vector<vector<ll>> dp(N+1, vector<ll>(H+1, INF64));
+    dp[0][H] = 0;
     REP (i, N) {
-        REP (j, H+10) {
+        for (int j = H; j >= 0; j--) {
+            // i番目の魔法を使う場合
+            chmin(dp[i][max(0LL, j - A[i])], dp[i][j] + B[i]);
+            // i番目の魔法を使わない場合
             chmin(dp[i + 1][j], dp[i][j]);
-            chmin(dp[i + 1][min(H, A[i] + j)], dp[i + 1][j] + B[i]);
         }
     }
-    c(dp[N][H])
+
+    cout << dp[N][0] << endl;
 }
 
 int main(){

@@ -76,20 +76,25 @@ using mint = Fp<MD>;
 using mint13 = Fp<13>;
 
 void solve(std::string S){
-    reverse(all(S));
+    reverse(all(S)); // 逆順にする
 
+    // dpテーブル
     vector<vector<mint>> dp(S.size()+1, vector<mint>(13, 0));
     dp[0][0] = 1;
 
     REP (i, S.size()) {
-        REP (j, 13) {
-            mint13 cur = modpow((mint13)10, i);
-            if (S[i] == '?') REP (k, 10) {
-                cur *= k;
-                dp[i + 1][(cur.val + j) % 13] += dp[i][j];
-            } else {
-                cur *= S[i] - '0';
-                dp[i + 1][(cur.val + j) % 13] += dp[i][j];
+        if (S[i] == '?') {
+            // ?のときは0~9までの場合を全て試す
+            REP (j, 10) {
+                mint13 cur = modpow((mint13)10, i) * j;
+                REP (k, 13) {
+                    dp[i + 1][(cur.val + k) % 13] += dp[i][k];
+                }
+            }
+        } else {
+            mint13 cur = modpow((mint13)10, i) * (S[i] - '0');
+            REP (k, 13) {
+                dp[i + 1][(cur.val + k) % 13] += dp[i][k];
             }
         }
     }
