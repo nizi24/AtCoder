@@ -26,26 +26,7 @@ bool is_product_overflow(long long a,long long b) {long prod=a*b;return (prod/b!
 
 
 void solve(long long N) {
-	string s = to_string(N);
-
-	vector<vector<ll>> cnt(10, vector<ll>(10, 0));
-	REP (i, N) {
-		string s = to_string(i + 1);
-		ll l = s[0] - '0';
-		ll r = s[s.size() - 1] - '0';
-		cnt[l][r]++;
-	}
-
-	ll ans = 0;
-	REP (i, 9) {
-		REP (j, 9) {
-			ll C = cnt[i + 1][j + 1];
-			ll R = cnt[j + 1][i + 1];
-			ans += C * R;
-		}
-	}
-
-	c(ans)
+	
 }
 
 int main(){
