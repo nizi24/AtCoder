@@ -84,49 +84,17 @@ template<int MOD> struct Fp {
 #define MD 1000000007
 using mint = Fp<MD>;
 
-const int MAX = 2010;
-const int MOD = 1000000007;
-
-long long fac[MAX], finv[MAX], inv[MAX];
-
-// テーブルを作る前処理
-void COMinit() {
-    fac[0] = fac[1] = 1;
-    finv[0] = finv[1] = 1;
-    inv[1] = 1;
-    for (int i = 2; i < MAX; i++){
-        fac[i] = fac[i - 1] * i % MOD;
-        inv[i] = MOD - inv[MOD%i] * (MOD / i) % MOD;
-        finv[i] = finv[i - 1] * inv[i] % MOD;
-    }
-}
-
-// 二項係数計算
-long long COM(int n, int k){
-    if (n < k) return 0;
-    if (n < 0 || k < 0) return 0;
-    return fac[n] * (finv[k] * finv[n - k] % MOD) % MOD;
-}
-
 void solve(long long S){
     vector<mint> dp(S+1, 0);
-    dp[0] = 1;
-    REP (i, S+1) {
-        for (int j = 0; j <= i - 3; j++) {
-            dp[i] += dp[j];
+    dp[S] = 1;
+
+    for (int i = S; i >= 0; i--) {
+        for (int j = 3; j <= i; j++) {
+            dp[i - j] += dp[i];
         }
     }
 
-    c(dp[S])
-
-
-    // COMinit();
-	// mint ans = 0;
-    // for (int i = 1; i <= S/3; i++) {
-    //     ll p = S - i * 3;
-    //     ans += COM(i + p - 1, p);
-    // }
-	// c(ans)
+    cout << dp[0] << endl;
 }
 
 int main(){
