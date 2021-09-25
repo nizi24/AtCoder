@@ -89,9 +89,11 @@ void solve(long long S){
     dp[S] = 1;
 
     for (int i = S; i >= 0; i--) {
-        for (int j = 3; j <= i; j++) {
-            dp[i - j] += dp[i];
+        mint sm = 0;
+        for (int j = 3; j <= S-i; j++) {
+            sm += dp[i + j];
         }
+        dp[i] += sm;
     }
 
     cout << dp[0] << endl;
