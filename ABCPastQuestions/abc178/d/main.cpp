@@ -86,14 +86,13 @@ using mint = Fp<MD>;
 
 void solve(long long S){
     vector<mint> dp(S+1, 0);
+    vector<mint> sm(S+1, 0);
     dp[S] = 1;
+    sm[S] = 1;
 
-    for (int i = S; i >= 0; i--) {
-        mint sm = 0;
-        for (int j = 3; j <= S-i; j++) {
-            sm += dp[i + j];
-        }
-        dp[i] += sm;
+    for (int i = S-1; i >= 0; i--) {
+        if (i + 3 <= S) dp[i] += sm[i + 3];
+        sm[i] += sm[i + 1] + dp[i];
     }
 
     cout << dp[0] << endl;
