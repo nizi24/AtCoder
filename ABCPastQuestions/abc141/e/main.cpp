@@ -12,7 +12,7 @@ map<ll,ll> prime_fac(ll A) {map<ll,ll>mp;for(int i=2;i*i<=A;i++){while(A%i== 0){
 bool is_prime(ll N){if(N<=1)return false;for(int i=2;i*i<=N;i++){if(N%i==0) return false;}return true;}
 template<class T>inline T myceil(T a,T b){return (a+(b-1))/b;}
 
-vector<int> Z_algolism(string S) {
+vector<int> Z_algorithm(string S) {
     vector<int> Z(S.size(), 0);
 
     // i: 現在探索している範囲の左端
@@ -54,7 +54,7 @@ void solve(long long N, std::string S){
     int ans = 0;
     REP (i, N) {
         string T = S.substr(i);
-        auto Z = Z_algolism(T);
+        auto Z = Z_algorithm(T);
         for (int j = 0; j < T.size(); j++) {
             // 被っている部分はカット
             chmax(ans, min(j, Z[j]));

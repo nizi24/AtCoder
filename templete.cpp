@@ -230,4 +230,42 @@ struct UnionFind {
     }
 };
 
+vector<int> Z_algorithm(string S) {
+    vector<int> Z(S.size(), 0);
+
+    // i: 現在探索している範囲の左端
+    // j: 一致している長さ
+    int i = 1, j = 0, l = S.size();
+
+    while (i < l) {
+        // 愚直に延長する
+        while (i + j < l && S[j] == S[i + j]) j++;
+
+        Z[i] = j;
+
+        // 一つも一致しなかった場合
+        if (j == 0) {
+            i++;
+            continue;
+        }
+
+        // 過去に探索した結果を利用
+        // (k + Z[k] < j): 現在探索している範囲をはみ出さないようにしている
+        // はみ出しそうな場合、次に持ち越し
+        int k = 1;
+        while (i + k < l && k + Z[k] < j) {
+            Z[i + k] = Z[k];
+            k++;
+        }
+
+        // (i + k - 1)まではZ配列が確定しているので左端をずらす
+        i += k;
+        // 左端をずらした分、一致部分が短くなる
+        j -= k;
+    }
+
+    Z[0] = l;
+    return Z;
+}
+
 #endif  // INCLUDED_MAIN
