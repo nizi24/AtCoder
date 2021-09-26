@@ -3,7 +3,6 @@
 
 #include __FILE__ 
 
-
 void solve(long long A, long long B, long long Q, std::vector<long long> s, std::vector<long long> t, std::vector<long long> x) {
     s.push_back(-INF64 / 4);
     s.push_back(INF64 / 4);
