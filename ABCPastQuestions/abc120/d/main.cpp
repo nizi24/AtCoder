@@ -5,7 +5,6 @@ using ll = long long;
 using lint = long long;
 typedef vector<long long> vint;
 typedef pair<long long, long long> pint;
-#define MD 1000000007
 #define INF INT32_MAX / 2
 #define INF64 INT64_MAX / 2
 #define EPS 0.001
@@ -56,14 +55,18 @@ struct UnionFind {
 
 void solve(long long N, long long M, std::vector<long long> A, std::vector<long long> B){
     UnionFind Uf(N+1);
-        
+    
+    // 答え
     vector<ll> ans(M, 0);
+    // sum(n): 1~nまでの総和を返す
     ans[M-1] = sum(N-1);
 
+    // 後ろから橋をつなげていく
     for (int i = M-1; i >= 1; i--) {
+        // 既にA[i]とB[i]が行き来可能ではない場合
         if (!Uf.issame(A[i], B[i])) {
             ans[i - 1] = ans[i] - Uf.size(A[i]) * Uf.size(B[i]);
-            Uf.unite(A[i], B[i]);
+            Uf.unite(A[i], B[i]); // 橋を作る
         } else {
             ans[i - 1] = ans[i];
         }
