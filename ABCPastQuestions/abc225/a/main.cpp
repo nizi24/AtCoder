@@ -3,26 +3,21 @@
 
 #include __FILE__ 
 
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
 
-{% if prediction_success %}
-void solve({{ formal_arguments }}) {
+void solve(std::string S) {
+    sort(all(S));
+    set<string> st;
+    do {
+        st.insert(S);
+    } while (next_permutation(all(S)));
 
+    c(st.size());
 }
-{% endif %}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    std::string S;
+    std::cin >> S;
+    solve(S);
     return 0;
 }
 

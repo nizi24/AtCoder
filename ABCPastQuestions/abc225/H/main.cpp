@@ -3,26 +3,23 @@
 
 #include __FILE__ 
 
-{% if yes_str %}
-const string YES = "{{ yes_str }}";
-{% endif %}
-{% if no_str %}
-const string NO = "{{ no_str }}";
-{% endif %}
 
-{% if prediction_success %}
-void solve({{ formal_arguments }}) {
+void solve(long long N, long long M, long long K, std::vector<long long> A) {
 
 }
-{% endif %}
 
 int main(){
-    {% if prediction_success %}
-    {{input_part}}
-    solve({{ actual_arguments }});
-    {% else %}
-    // Failed to predict input format
-    {% endif %}
+    long long N;
+    scanf("%lld",&N);
+    long long M;
+    scanf("%lld",&M);
+    long long K;
+    scanf("%lld",&K);
+    std::vector<long long> A(K);
+    for(int i = 0 ; i < K ; i++){
+        scanf("%lld",&A[i]);
+    }
+    solve(N, M, K, std::move(A));
     return 0;
 }
 
