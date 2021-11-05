@@ -1,5 +1,5 @@
 <?php
-fscanf(STDIN, "%d %d %d %d", $H, $W, $X, $Y);
+fscanf(STDIN, "%d %d %d %d", $H, $W, $Y, $X);
 $S = [];
 for ($i = 0; $i < $H; $i++) {
     $S[] = rtrim(fgets(STDIN));
@@ -24,7 +24,7 @@ for ($i = $Y-1; $i >= 0; $i--) {
     $ans++;
 }
 // 下
-for ($i = $Y+1; $i < $W; $i++) {
+for ($i = $Y+1; $i < $H; $i++) {
     if ($S[$i][$X] == '#') break;
     $ans++;
 }
