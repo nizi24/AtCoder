@@ -7,8 +7,8 @@ while ($Y > $X) {
         $X *= $A;
         $ans++;
     } else {
-        $ans += ($Y - $X - 1) / $B;
+        $ans += intval(($Y - $X - 1) / $B);
         break;
     }
 }
-print $ans;
+print $ans . "\n";
