@@ -27,6 +27,7 @@ void solve(long long N, long long M, std::vector<long long> A) {
     vector<ll> match = {2,5,5,4,5,6,3,7,6};
     vector<vector<ll>> dp(N+1, vector<ll>(M, -INF));
 
+    // 初期化
     REP (i, M) {
         A[i]--;
         if (N - match[A[i]] >= 0) {
@@ -34,6 +35,7 @@ void solve(long long N, long long M, std::vector<long long> A) {
         }
     }
 
+    // DP
     for (int i = N; i >= 0; i--) {
         REP (j, M) {
             REP (k, M) {
@@ -44,6 +46,7 @@ void solve(long long N, long long M, std::vector<long long> A) {
         }
     }
 
+    // 最上位の桁を決定する
     ll mx = -1, mx_keta = 0;
     REP (i, M) {
         if (chmax(mx_keta, dp[0][i])) mx = A[i];
@@ -54,6 +57,7 @@ void solve(long long N, long long M, std::vector<long long> A) {
     ll cur = match[mx];
     mx_keta--;
 
+    // それ以下の桁を決定する
     while (cur < N) {
         mx = -1;
         REP (i, M) {
