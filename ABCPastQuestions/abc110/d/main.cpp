@@ -125,41 +125,10 @@ void solve(long long N, long long M) {
     }
 
     COMinit();
-    vector<ll> divisor = yakusu(M); // 約数列挙
-    sort(all(divisor));
+    auto fac = prime_fac(M);
 
-    map<ll, ll> mp; // 約数と添字の対応づけ
-    REP (i, divisor.size()) mp[divisor[i]] = i;
-
-    ll d = divisor.size();
-    vector<vector<mint>> dp(d, vector<mint>(31, 0));
-    dp[0][0] = 1;
-
-
-    // i: 使用するMの約数の添字, j: 現在の値と対応するMの約数の添字
-    // k: 現在決定済みである数列の要素の数, l: 今から決定する要素の数
-    for (int i = 1; i < d; i++) {
-        ll p = divisor[i];
-        for (int j = d-1; j >= 0; j--) {
-            ll cur = divisor[j];
-
-            // cur * pがMの約数でないならcontinue
-            if (!mp.count(cur * p)) continue;
-
-            REP (k, 31) for (int l = 1; l <= 30-k; l++) {
-                ll nx = cur * pw(p, l);
-                // nxがMの約数でないならbreak
-                if (!mp.count(nx) || N < k + l) break;
-
-                dp[mp[nx]][k + l] += dp[j][k] * COM(N-k, l);
-            }
-        }
-    }
-
-    mint ans = 0;
-    REP (i, 30) {
-        ans += dp[d-1][i+1];
-    }
+    mint ans = 1;
+    for (auto p : fac) ans *= COM(N+p.second-1, p.second);
     cout << ans << endl;
 }
 

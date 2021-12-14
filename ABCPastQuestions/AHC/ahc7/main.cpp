@@ -3,6 +3,10 @@
 
 #include __FILE__ 
 
+std::random_device rd;
+std::default_random_engine eng(rd());
+std::uniform_real_distribution<float> distr(1, 3);
+
 // 採用するかどうか評価する
 bool eval(int x1, int y1, int x2, int y2, int l, int cnt) {
     ll d = round(sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2)));
@@ -16,17 +20,6 @@ int main() {
     REP (i, N) cin >> x[i] >> y[i];
     REP (i, M) cin >> u[i] >> v[i];
 
-    // グラフ構築
-    vector<vector<ll>> G(N);
-    REP (i, M) {
-        G[u[i]].push_back(v[i]);
-        G[v[i]].push_back(u[i]);
-    }
-
-    // 辺の辞書
-    map<pair<int, int>, int> mp;
-    REP (i, M) mp[{min(u[i], v[i]), max(u[i], v[i])}] = i;
-
     // 距離を計算
     vector<ll> d(M);
     REP (i, M) {
@@ -34,19 +27,6 @@ int main() {
         int x2 = x[v[i]], y2 = y[v[i]];
         d[i] = round(sqrt(pow(x1 - x2, 2) + pow(y1 - y2, 2)));
     }
-
-    // 採用するかどうか先に決めておく
-    vector<pair<ll, int>> D;
-    REP (i, M) D.push_back({d[i], i});
-    sort(all(D));
-
-    UnionFind P_Uf(N);
-    vector<int> saiyou(M, 0);
-    REP (i, M) {
-        if (P_Uf.unite(u[D[i].second], v[D[i].second])) saiyou[D[i].second] = 1;
-    }
-
-    vector<int> seen(M, 0);
 
     // 解
     UnionFind Uf(N);
@@ -60,21 +40,36 @@ int main() {
             continue;
         }
 
-        if (saiyou[i]) {
-            if (d[i] * 1.5 > l || !saiyou_rank[i].size()) {
-                cout << 1 << endl;
-                Uf.unite(u[i], v[i]);
-            } else cout << 0 << endl;
-            seen[i] = 1;
+        // i番目の辺を選択しなくても連結にできるか確認
+        auto test = Uf;
+        for (int j = i + 1; j < M; j++) test.unite(u[j], v[j]);
+        set<ll> root;
+        REP (i, N) root.insert(test.root(i));
+        if (root.size() > 1) {
+            cout << 1 << endl;
+            continue;
+        }
 
-        } else {
-            UnionFind P = copy(Uf);
-            vector<int> saiyou(M, 0);
-            REP (i, M) {
-                if (P.unite(u[D[i].second], v[D[i].second])) saiyou[D[i].second] = 1;
+        // 多数決をとって採用するかどうか決める
+        int cnt = 0;
+        REP (j, 51) {
+            vector<pair<ll, ll>> D;
+            D.push_back({l, i});
+            for (int j = i + 1; j < M; j++) {
+                D.push_back({round(d[j] * distr(eng)), j});
+            }
+            sort(all(D));
+
+            test = Uf;
+            REP (j, M-i) {
+                if (test.unite(u[D[j].second], v[D[j].second]) && i == j) cnt++;
             }
         }
 
+        if (cnt >= 26) {
+            cout << 1 << endl;
+            Uf.unite(u[i], v[i]);
+        } else cout << 0 << endl;
     }
 
     return 0;
