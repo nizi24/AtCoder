@@ -3,39 +3,15 @@
 
 #include __FILE__ 
 
-const string YES = "Yes";
-const string NO = "No";
 
+void solve(long long H) {
+    cf(sqrt(H * (12800000 + H)))
+}
 
 int main(){
-    int n, m;
-    cin >> n >> m;
-    vector<vector<ll>> B(n, vector<ll>(m));
-    REP (i, n) REP (j, m) cin >> B[i][j];
-
-    REP (i, n) REP (j, m) B[i][j] %= 7;
-
-    // 横向き
-    REP (i, m-1) {
-        if (B[0][i + 1] != B[0][i]+1) {
-            c(NO);
-            return 0;
-        }
-    }
-
-    // 縦向き
-    REP (j, m) {
-        int top = B[0][j];
-        REP (i, n) {
-            if (top != B[i][j]) {
-                c(NO);
-                return 0;
-            }
-        }
-    }
-
-    c(YES);
-
+    long long H;
+    scanf("%lld",&H);
+    solve(H);
     return 0;
 }
 

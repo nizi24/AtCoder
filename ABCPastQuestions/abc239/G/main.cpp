@@ -3,39 +3,27 @@
 
 #include __FILE__ 
 
-const string YES = "Yes";
-const string NO = "No";
 
+void solve(long long N, long long M, std::vector<long long> a, std::vector<long long> b, std::vector<long long> c) {
+
+}
 
 int main(){
-    int n, m;
-    cin >> n >> m;
-    vector<vector<ll>> B(n, vector<ll>(m));
-    REP (i, n) REP (j, m) cin >> B[i][j];
-
-    REP (i, n) REP (j, m) B[i][j] %= 7;
-
-    // 横向き
-    REP (i, m-1) {
-        if (B[0][i + 1] != B[0][i]+1) {
-            c(NO);
-            return 0;
-        }
+    long long N;
+    scanf("%lld",&N);
+    long long M;
+    scanf("%lld",&M);
+    std::vector<long long> a(M);
+    std::vector<long long> b(M);
+    for(int i = 0 ; i < M ; i++){
+        scanf("%lld",&a[i]);
+        scanf("%lld",&b[i]);
     }
-
-    // 縦向き
-    REP (j, m) {
-        int top = B[0][j];
-        REP (i, n) {
-            if (top != B[i][j]) {
-                c(NO);
-                return 0;
-            }
-        }
+    std::vector<long long> c(N);
+    for(int i = 0 ; i < N ; i++){
+        scanf("%lld",&c[i]);
     }
-
-    c(YES);
-
+    solve(N, M, std::move(a), std::move(b), std::move(c));
     return 0;
 }
 
